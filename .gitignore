@@ -1,6 +1,9 @@
 *.pyc
+*.komodoproject
 .Python
+.DS_STORE
 bin
 build
 include
 lib
+share
