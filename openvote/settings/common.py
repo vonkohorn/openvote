@@ -1,5 +1,6 @@
 # Django settings for openvote project.
 import dj_database_url
+import os
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
@@ -80,8 +81,8 @@ TEMPLATE_LOADERS = (
 )
 
 TEMPLATE_CONTEXT_PROCESSORS = (
- #   'social_auth.context_processors.social_auth_by_name_backends',
-    'social_auth.context_processors.social_auth_backends',
+    'social_auth.context_processors.social_auth_by_name_backends',
+   # 'social_auth.context_processors.social_auth_backends',
  #   'social_auth.context_processors.social_auth_by_type_backends',
   #  'social_auth.context_processors.social_auth_login_redirect',
 )
@@ -132,13 +133,13 @@ SOCIAL_AUTH_EXPIRATION = 'expires'
 
 AUTHENTICATION_BACKENDS = (
     'social_auth.backends.twitter.TwitterBackend',
-    'social_auth.backends.facebook.FacebookBackend',
+#    'social_auth.backends.facebook.FacebookBackend',
 #    'social_auth.backends.google.GoogleOAuthBackend',
 #    'social_auth.backends.google.GoogleOAuth2Backend',
 #    'social_auth.backends.google.GoogleBackend',
 #    'social_auth.backends.yahoo.YahooBackend',
-#    'social_auth.backends.browserid.BrowserIDBackend',
-#    'social_auth.backends.contrib.linkedin.LinkedinBackend',
+ #   'social_auth.backends.browserid.BrowserIDBackend',
+  #  'social_auth.backends.contrib.linkedin.LinkedinBackend',
 #    'social_auth.backends.contrib.livejournal.LiveJournalBackend',
 #    'social_auth.backends.contrib.orkut.OrkutBackend',
 #    'social_auth.backends.contrib.foursquare.FoursquareBackend',
@@ -166,7 +167,29 @@ SOCIAL_AUTH_COMPLETE_URL_NAME  = 'socialauth_complete'
 SOCIAL_AUTH_ASSOCIATE_URL_NAME = 'socialauth_associate_complete'
 SOCIAL_AUTH_RAISE_EXCEPTIONS = DEBUG
 
+TWITTER_CONSUMER_KEY	= os.environ['TWITTER_CONSUMER_KEY']
+TWITTER_CONSUMER_SECRET	= os.environ['TWITTER_CONSUMER_SECRET']
+FACEBOOK_APP_ID			= os.environ['FACEBOOK_APP_ID']
+FACEBOOK_API_SECRET		= os.environ['FACEBOOK_API_SECRET']
 
+LINKEDIN_CONSUMER_KEY        = ''
+LINKEDIN_CONSUMER_SECRET     = ''
+ORKUT_CONSUMER_KEY           = ''
+ORKUT_CONSUMER_SECRET        = ''
+GOOGLE_CONSUMER_KEY          = ''
+GOOGLE_CONSUMER_SECRET       = ''
+GOOGLE_OAUTH2_CLIENT_ID      = ''
+GOOGLE_OAUTH2_CLIENT_SECRET  = ''
+FOURSQUARE_CONSUMER_KEY      = ''
+FOURSQUARE_CONSUMER_SECRET   = ''
+VK_APP_ID                    = ''
+VK_API_SECRET                = ''
+LIVE_CLIENT_ID = ''
+LIVE_CLIENT_SECRET = ''
+SKYROCK_CONSUMER_KEY      = ''
+SKYROCK_CONSUMER_SECRET   = ''
+YAHOO_CONSUMER_KEY        = ''
+YAHOO_CONSUMER_SECRET     = ''
 
 # ------- Logging ------- #
 
