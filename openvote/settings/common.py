@@ -1,8 +1,8 @@
 # Django settings for openvote project.
 import dj_database_url
 
-DEBUG = False
-TEMPLATE_DEBUG = False
+DEBUG = True
+TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
     # ('Your Name', 'your_email@example.com'),
@@ -80,10 +80,10 @@ TEMPLATE_LOADERS = (
 )
 
 TEMPLATE_CONTEXT_PROCESSORS = (
-#    'social_auth.context_processors.social_auth_by_name_backends',
+ #   'social_auth.context_processors.social_auth_by_name_backends',
     'social_auth.context_processors.social_auth_backends',
-#    'social_auth.context_processors.social_auth_by_type_backends',
-    'social_auth.context_processors.social_auth_login_redirect',
+ #   'social_auth.context_processors.social_auth_by_type_backends',
+  #  'social_auth.context_processors.social_auth_login_redirect',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -122,6 +122,8 @@ INSTALLED_APPS = (
     'social_auth'
 )
 
+# ------- social_auth ------- #
+
 SOCIAL_AUTH_DEFAULT_USERNAME = 'new_social_auth_user'
 # SOCIAL_AUTH_UUID_LENGTH = 16
 # SOCIAL_AUTH_EXTRA_DATA = False
@@ -131,42 +133,42 @@ SOCIAL_AUTH_EXPIRATION = 'expires'
 AUTHENTICATION_BACKENDS = (
     'social_auth.backends.twitter.TwitterBackend',
     'social_auth.backends.facebook.FacebookBackend',
-    'social_auth.backends.google.GoogleOAuthBackend',
-    'social_auth.backends.google.GoogleOAuth2Backend',
-    'social_auth.backends.google.GoogleBackend',
-    'social_auth.backends.yahoo.YahooBackend',
-    'social_auth.backends.browserid.BrowserIDBackend',
-    'social_auth.backends.contrib.linkedin.LinkedinBackend',
-    'social_auth.backends.contrib.livejournal.LiveJournalBackend',
-    'social_auth.backends.contrib.orkut.OrkutBackend',
-    'social_auth.backends.contrib.foursquare.FoursquareBackend',
-    'social_auth.backends.contrib.github.GithubBackend',
-    'social_auth.backends.contrib.vkontakte.VKontakteBackend',
-    'social_auth.backends.contrib.live.LiveBackend',
-    'social_auth.backends.contrib.skyrock.SkyrockBackend',
-    'social_auth.backends.contrib.yahoo.YahooOAuthBackend',
-    'social_auth.backends.OpenIDBackend',
-    'django.contrib.auth.backends.ModelBackend',
+#    'social_auth.backends.google.GoogleOAuthBackend',
+#    'social_auth.backends.google.GoogleOAuth2Backend',
+#    'social_auth.backends.google.GoogleBackend',
+#    'social_auth.backends.yahoo.YahooBackend',
+#    'social_auth.backends.browserid.BrowserIDBackend',
+#    'social_auth.backends.contrib.linkedin.LinkedinBackend',
+#    'social_auth.backends.contrib.livejournal.LiveJournalBackend',
+#    'social_auth.backends.contrib.orkut.OrkutBackend',
+#    'social_auth.backends.contrib.foursquare.FoursquareBackend',
+#    'social_auth.backends.contrib.github.GithubBackend',
+#    'social_auth.backends.contrib.vkontakte.VKontakteBackend',
+#    'social_auth.backends.contrib.live.LiveBackend',
+#    'social_auth.backends.contrib.skyrock.SkyrockBackend',
+#    'social_auth.backends.contrib.yahoo.YahooOAuthBackend',
+#    'social_auth.backends.OpenIDBackend',
+	'django.contrib.auth.backends.ModelBackend',
 )
 
 LOGIN_URL          = '/login-form/'
 LOGIN_REDIRECT_URL = '/logged-in/'
 LOGIN_ERROR_URL    = '/login-error/'
-
 # If a custom redirect URL is needed that must be different to LOGIN_URL, define the setting:
 # SOCIAL_AUTH_LOGIN_REDIRECT_URL = '/another-login-url/'
-
 # A different URL could be defined for newly registered users:
 # SOCIAL_AUTH_NEW_USER_REDIRECT_URL = '/new-users-redirect-url/'
-
 # or for newly associated accounts:
 # SOCIAL_AUTH_NEW_ASSOCIATION_REDIRECT_URL = '/new-association-redirect-url/'
-
 # or for account disconnections:
 # SOCIAL_AUTH_DISCONNECT_REDIRECT_URL = '/account-disconnected-redirect-url/'
-
 SOCIAL_AUTH_COMPLETE_URL_NAME  = 'socialauth_complete'
 SOCIAL_AUTH_ASSOCIATE_URL_NAME = 'socialauth_associate_complete'
+SOCIAL_AUTH_RAISE_EXCEPTIONS = DEBUG
+
+
+
+# ------- Logging ------- #
 
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to
