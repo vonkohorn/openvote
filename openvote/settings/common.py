@@ -1,5 +1,6 @@
 # Django settings for openvote project.
 import dj_database_url
+import os
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
@@ -9,6 +10,8 @@ ADMINS = (
 )
 
 MANAGERS = ADMINS
+
+PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 DATABASES = {'default': dj_database_url.config(default='postgres://localhost')}
 
@@ -48,18 +51,11 @@ MEDIA_URL = ''
 # Don't put anything in this directory yourself; store your static files
 # in apps' "static/" subdirectories and in STATICFILES_DIRS.
 # Example: "/home/media/media.lawrence.com/static/"
-STATIC_ROOT = ''
+STATIC_ROOT = os.path.join(PROJECT_ROOT, '/static/')
 
 # URL prefix for static files.
 # Example: "http://media.lawrence.com/static/"
 STATIC_URL = '/static/'
-
-# Additional locations of static files
-STATICFILES_DIRS = (
-    # Put strings here, like "/home/html/static" or "C:/www/django/static".
-    # Always use forward slashes, even on Windows.
-    # Don't forget to use absolute paths, not relative paths.
-)
 
 # List of finder classes that know how to find static files in
 # various locations.
@@ -96,6 +92,10 @@ MIDDLEWARE_CLASSES = (
     # 'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
 
+STATICFILES_DIRS = (
+	os.path.join(PROJECT_ROOT, "static"),
+)
+
 ROOT_URLCONF = 'openvote.urls'
 
 # Python dotted path to the WSGI application used by Django's runserver.
@@ -105,6 +105,7 @@ TEMPLATE_DIRS = (
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
+	PROJECT_ROOT,
 )
 
 INSTALLED_APPS = (
@@ -132,13 +133,13 @@ SOCIAL_AUTH_EXPIRATION = 'expires'
 
 AUTHENTICATION_BACKENDS = (
     'social_auth.backends.twitter.TwitterBackend',
-#    'social_auth.backends.facebook.FacebookBackend',
+    'social_auth.backends.facebook.FacebookBackend',
 #    'social_auth.backends.google.GoogleOAuthBackend',
 #    'social_auth.backends.google.GoogleOAuth2Backend',
 #    'social_auth.backends.google.GoogleBackend',
 #    'social_auth.backends.yahoo.YahooBackend',
- #   'social_auth.backends.browserid.BrowserIDBackend',
-  #  'social_auth.backends.contrib.linkedin.LinkedinBackend',
+#    'social_auth.backends.browserid.BrowserIDBackend',
+#    'social_auth.backends.contrib.linkedin.LinkedinBackend',
 #    'social_auth.backends.contrib.livejournal.LiveJournalBackend',
 #    'social_auth.backends.contrib.orkut.OrkutBackend',
 #    'social_auth.backends.contrib.foursquare.FoursquareBackend',
@@ -152,7 +153,7 @@ AUTHENTICATION_BACKENDS = (
 )
 
 LOGIN_URL          = '/login-form/'
-LOGIN_REDIRECT_URL = '/logged-in/'
+LOGIN_REDIRECT_URL = '/'
 LOGIN_ERROR_URL    = '/login-error/'
 # If a custom redirect URL is needed that must be different to LOGIN_URL, define the setting:
 # SOCIAL_AUTH_LOGIN_REDIRECT_URL = '/another-login-url/'
@@ -167,31 +168,28 @@ SOCIAL_AUTH_ASSOCIATE_URL_NAME = 'socialauth_associate_complete'
 SOCIAL_AUTH_RAISE_EXCEPTIONS = DEBUG
 
 try:
-	import os
-
-	TWITTER_CONSUMER_KEY	= os.environ['TWITTER_CONSUMER_KEY']
-	TWITTER_CONSUMER_SECRET	= os.environ['TWITTER_CONSUMER_SECRET']
-	FACEBOOK_APP_ID			= os.environ['FACEBOOK_APP_ID']
-	FACEBOOK_API_SECRET		= os.environ['FACEBOOK_API_SECRET']
-	
-	LINKEDIN_CONSUMER_KEY        = ''
-	LINKEDIN_CONSUMER_SECRET     = ''
-	ORKUT_CONSUMER_KEY           = ''
-	ORKUT_CONSUMER_SECRET        = ''
-	GOOGLE_CONSUMER_KEY          = ''
-	GOOGLE_CONSUMER_SECRET       = ''
-	GOOGLE_OAUTH2_CLIENT_ID      = ''
-	GOOGLE_OAUTH2_CLIENT_SECRET  = ''
-	FOURSQUARE_CONSUMER_KEY      = ''
-	FOURSQUARE_CONSUMER_SECRET   = ''
-	VK_APP_ID                    = ''
-	VK_API_SECRET                = ''
-	LIVE_CLIENT_ID = ''
-	LIVE_CLIENT_SECRET = ''
-	SKYROCK_CONSUMER_KEY      = ''
-	SKYROCK_CONSUMER_SECRET   = ''
-	YAHOO_CONSUMER_KEY        = ''
-	YAHOO_CONSUMER_SECRET     = ''
+	TWITTER_CONSUMER_KEY		= os.environ['TWITTER_CONSUMER_KEY']
+	TWITTER_CONSUMER_SECRET		= os.environ['TWITTER_CONSUMER_SECRET']
+	FACEBOOK_APP_ID				= os.environ['FACEBOOK_APP_ID']
+	FACEBOOK_API_SECRET			= os.environ['FACEBOOK_API_SECRET']
+	LINKEDIN_CONSUMER_KEY		= ''
+	LINKEDIN_CONSUMER_SECRET	= ''
+	ORKUT_CONSUMER_KEY          = ''
+	ORKUT_CONSUMER_SECRET       = ''
+	GOOGLE_CONSUMER_KEY         = ''
+	GOOGLE_CONSUMER_SECRET      = ''
+	GOOGLE_OAUTH2_CLIENT_ID     = ''
+	GOOGLE_OAUTH2_CLIENT_SECRET = ''
+	FOURSQUARE_CONSUMER_KEY     = ''
+	FOURSQUARE_CONSUMER_SECRET  = ''
+	VK_APP_ID                   = ''
+	VK_API_SECRET               = ''
+	LIVE_CLIENT_ID				= ''
+	LIVE_CLIENT_SECRET			= ''
+	SKYROCK_CONSUMER_KEY		= ''
+	SKYROCK_CONSUMER_SECRET		= ''
+	YAHOO_CONSUMER_KEY			= ''
+	YAHOO_CONSUMER_SECRET		= ''
 except:
 	pass
 
