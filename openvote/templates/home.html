@@ -2,30 +2,26 @@
 {% load staticfiles %}
 {% load url from future %}
 
-<html> 
+<html lang="en"> 
 
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=Edge;chrome=1" />
-
 	<title>OpenVote.US</title>
 
 	<!-- icons --> 
 	<link rel="shortcut icon" href="{% static 'g/favicon.ico' %}" />
 	<!-- for later:
-	<link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}" type="text/css" />
-	<script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
 	<link rel="apple-touch-icon" href="{% static 'g/apple-touch-icon.png' %}"> 
 	<link rel="apple-touch-icon" sizes="72x72" href="{% static 'g/apple-touch-icon-72x72.png' %}"> 
 	<link rel="apple-touch-icon" sizes="114x114" href="{% static 'g/apple-touch-icon-114x114.png' %}"> -->
 
 	<!-- styles --> 
-	<link rel="stylesheet" href="{% static 'css/openvote.css' %}" type="text/css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}" type="text/css" />
+	<script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
     <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Droid+Sans|Droid+Sans+Mono" type="text/css" />
-    <style type="text/css">
-        #bgcanvas{ position:fixed; z-index: 0; }
-        #fgcanvas{ position:fixed; z-index: 1; }
-    </style>
+	<link rel="stylesheet" href="{% static 'css/openvote.css' %}" type="text/css" />
 
 	<!-- jquery --> 
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
@@ -34,13 +30,16 @@
 	<link href="{% static 'js/fancybox/jquery.fancybox-1.3.4.css' %}" media="screen" type="text/css" rel="stylesheet" />
 	<script src="{% static 'js/openvote.js' %}"></script>
 
-	<!-- Google Maps --> 
+    <!-- HTML5 shim for IE6-8 -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+	<!-- Google Maps
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
 	<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCy9qqGNDbHN_gtdFvQ6W25ydBD3D6scqk&sensor=false"></script>
     <script type="text/javascript">
         function initialize() {
-            var canvas = document.getElementById('bgcanvas');
-            var context = canvas.getContext('2d');
             var mapOptions = {
                 center: new google.maps.LatLng(42.3, 289),
                 zoom: 13,
@@ -49,27 +48,60 @@
             var map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
         }
     </script>
-
+    --> 
 </head>
 
 
-<body onload="initialize()">
+<body>
 
-       <canvas id="bgcanvas">Error, canvas is not supported</canvas>
-       <div id="map_canvas" style="width:100%; height:100%"></div>
-       word
- 
-    <canvas id="fgcanvas">Error, canvas is not supported</canvas>
-	<div>
-        {% if user.is_authenticated %}
-            <a href="{% url "logout" %}">Sign out</a>
-    	{% else %}
-            <a id="fancybox" href="{% url "login" %}">Sign in</a>
-    	{% endif %}
+    <img zoom=2 src="{% static 'g/bg.jpg' %}" style="position: fixed; z-index: -1;"/>
+    <!-- <div id="map_canvas" style="width:100%; height:100%; z-index: -1"></div> -->
+
+    <br/><br/><br/>
+    
+    <div class="container-fluid">
+    <div class="row-fluid">
+        <div class="span1">&nbsp;</div>
+        <div class="span2">
+            <div class="box">
+                {% if user.is_authenticated %}
+                    <h2>{{ user.username }}</h2>
+                    <a href="" title="change your location">Geolocation {{ user.geolocation }}</a> <br/>
+                    <a href="{% url "logout" %}">Sign out</a>
+                {% else %}
+                    <a id="fancybox" href="{% url "login" %}">Sign in</a>
+                {% endif %}
+                <br/>
+                <br/>
+                <h3>Your Elections</h3>
+                    <div style="padding-left: 8px">
+
+                    {% for election in elections %}
+                        <h4 style="padding-top: 4px; padding-bottom: 2px;">{{ election.name }}</h4>
+                        {% for candidate in election.candidates %}
+                            <input type="checkbox" {% if candidate.approved %}CHECKED{% endif %}/> {{ candidate.name }} <br/>
+                        {% endfor %}
+                    {% endfor %}
+
+                        <h4 style="padding-top: 4px; padding-bottom: 2px;">US Presidency</h4>
+                            <input type="checkbox" CHECKED/> Barack Obama <br/>
+                            <input type="checkbox" /> Mitt Romnington III <br/>
+
+                    </div>
+                <br/>
+                <br/>
+                <a href="https://register.rockthevote.com/registrants/new">Register to Vote</a>
+            </div>
+        </div>
+        <div class="span8">
+            <div class="box">
+                Election
+            </div>
+        </div>
+        <div class="span1">&nbsp;</div>
+    </div>
     </div>
     
-	
-	<p/><a href="https://register.rockthevote.com/registrants/new">Register to Vote</a>
 </body>
 
 </html>
