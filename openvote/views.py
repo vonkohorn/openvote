@@ -1,11 +1,10 @@
-from django.shortcuts import render_to_response
-from social_auth import backends
 import os
 import pkgutil
+
 from django.contrib.auth import logout as auth_logout
-from django.http import HttpResponseRedirect
+from django.shortcuts import render_to_response, redirect
 
-
+from social_auth import backends
 
 # Create your views here.
 def home(request):
@@ -17,4 +16,4 @@ def login(request):
 
 def logout(request):
     auth_logout(request)
-    return HttpResponseRedirect('/')
+    return redirect("home")
