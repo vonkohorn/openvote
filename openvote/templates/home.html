@@ -95,7 +95,16 @@
         </div>
         <div class="span8">
             <div class="box">
-                Election
+
+                {% if election %}
+                    <h4 style="padding-top: 4px; padding-bottom: 2px;">{{ election.name }}</h4>
+                    election view - bla blerg derpity derp
+                {% elif candidate %}
+                    <h4 style="padding-top: 4px; padding-bottom: 2px;">{{ candidate.name }}</h4>
+                    candidate view - bla blerg derpity derp
+                {% else %}
+                    No election or candidate selected
+                {% endif %}
             </div>
         </div>
         <div class="span1">&nbsp;</div>
