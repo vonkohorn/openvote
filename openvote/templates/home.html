@@ -1,5 +1,7 @@
 <!DOCTYPE html>
 {% load staticfiles %}
+{% load url from future %}
+
 <html> 
 
 <head>
@@ -20,6 +22,10 @@
 	<!-- styles --> 
 	<link rel="stylesheet" href="{% static 'css/openvote.css' %}" type="text/css" />
     <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Droid+Sans|Droid+Sans+Mono" type="text/css" />
+    <style type="text/css">
+        #bgcanvas{ position:fixed; z-index: 0; }
+        #fgcanvas{ position:fixed; z-index: 1; }
+    </style>
 
 	<!-- jquery --> 
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
@@ -32,23 +38,36 @@
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
 	<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCy9qqGNDbHN_gtdFvQ6W25ydBD3D6scqk&sensor=false"></script>
     <script type="text/javascript">
-      function initialize() {
-        var mapOptions = {
-          center: new google.maps.LatLng(-34.397, 150.644),
-          zoom: 8,
-          mapTypeId: google.maps.MapTypeId.ROADMAP
-        };
-        var map = new google.maps.Map(document.getElementById("map_canvas"),
-            mapOptions);
-      }
+        function initialize() {
+            var canvas = document.getElementById('bgcanvas');
+            var context = canvas.getContext('2d');
+            var mapOptions = {
+                center: new google.maps.LatLng(42.3, 289),
+                zoom: 13,
+                mapTypeId: google.maps.MapTypeId.ROADMAP
+            };
+            var map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
+        }
     </script>
 
 </head>
 
+
 <body onload="initialize()">
 
-	<a id="fancybox" href="/login">Sign in</a>
-	<div id="map_canvas" style="width:100%; height:100%"></div>
+       <canvas id="bgcanvas">Error, canvas is not supported</canvas>
+       <div id="map_canvas" style="width:100%; height:100%"></div>
+       word
+ 
+    <canvas id="fgcanvas">Error, canvas is not supported</canvas>
+	<div>
+        {% if user.is_authenticated %}
+            <a href="{% url "logout" %}">Sign out</a>
+    	{% else %}
+            <a id="fancybox" href="{% url "login" %}">Sign in</a>
+    	{% endif %}
+    </div>
+    
 	
 	<p/><a href="https://register.rockthevote.com/registrants/new">Register to Vote</a>
 </body>

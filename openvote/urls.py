@@ -15,6 +15,8 @@ urlpatterns = patterns('',
     # url(r'^openvote/', include('openvote.foo.urls')),
     url(r'^$', 'openvote.views.home', name='home'),
     url(r'^login$', 'openvote.views.login', name='login'),
+    url(r'^logout$', 'openvote.views.logout', name='logout'),
+
 
     url(r'', include('social_auth.urls')),
 

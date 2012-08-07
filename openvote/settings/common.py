@@ -120,7 +120,8 @@ INSTALLED_APPS = (
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
     'gunicorn',
-    'social_auth'
+    'social_auth',
+	'django_extensions'
 )
 
 # ------- social_auth ------- #
