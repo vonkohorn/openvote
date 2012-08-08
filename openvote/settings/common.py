@@ -8,13 +8,14 @@ TEMPLATE_DEBUG = DEBUG
 ADMINS = (
     # ('Your Name', 'your_email@example.com'),
     ('Dan von Kohorn', 'word@word.com'),
+    ('Doug von Kohorn', 'word@word.com'),
 )
 
 MANAGERS = ADMINS
 
 PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-DATABASES = {'default': dj_database_url.config(default='postgres://localhost')}
+DATABASES = {'default': dj_database_url.config(default='postgres://localhost/db')}
 
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
