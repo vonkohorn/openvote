@@ -41,8 +41,10 @@
 	<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCy9qqGNDbHN_gtdFvQ6W25ydBD3D6scqk&sensor=false"></script>
     <script type="text/javascript">
         function initialize() {
+            var lat = "{{ lat|escapejs }}";
+            var lon = "{{ lon|escapejs }}"
             var mapOptions = {
-                center: new google.maps.LatLng(37.4419, -94.1419),
+                center: new google.maps.LatLng(lat, lon),
                 zoom: 5,
                 mapTypeId: google.maps.MapTypeId.ROADMAP
             };
