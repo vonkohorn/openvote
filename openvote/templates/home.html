@@ -36,41 +36,47 @@
     <![endif]-->
 
 	<!-- Google Maps --> 
+    <!-- no HTML5 geolocation -->
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
 	<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCy9qqGNDbHN_gtdFvQ6W25ydBD3D6scqk&sensor=false"></script>
     <script type="text/javascript">
         function initialize() {
             var mapOptions = {
-                center: new google.maps.LatLng(42.3, 289),
-                zoom: 13,
+                center: new google.maps.LatLng(37.4419, -94.1419),
+                zoom: 5,
                 mapTypeId: google.maps.MapTypeId.ROADMAP
             };
             var map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
         }
     </script>
-    
+
+    <!-- with HTML5 geolocation -->
+	<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCy9qqGNDbHN_gtdFvQ6W25ydBD3D6scqk&sensor=false"></script>
+   
 </head>
 
 
-<body>
+<body onload='initialize()'>
 
-    <!-- <img zoom=2 src="{% static 'g/bg.jpg' %}" style="position: fixed; z-index: -1;"/> -->
-    <!-- <div id="map_canvas" style="width:100%; height:100%; z-index: -1"></div> -->
-    <div style="z-index: -1">
-        <img zoom=2 src="{% static 'g/bg.jpg' %}" style="position: fixed; z-index: -1;"/>
+    <!-- <img src="{% static 'g/bg.jpg' %}" style="position: fixed; z-index: -1;"/> -->
+    <!-- <div id="map_canvas" style="width:100%; height:100%;"></div> -->
+    <div id="geo-map" class="gmap example" style="position: absolute; z-index: -1;">
         <div id="map_canvas" style="width:100%; height:100%;"></div>
+        <!-- <img src="http://maps.google.com/maps/api/staticmap?center=37.4419,-94.1419&zoom=3&size=640x640&maptype=hybrid&sensor=true"/> -->
     </div>
-    
+   
+    <div class="container-fluid">
+ 
     <br/><br/><br/>
     
-    <div class="container-fluid">
     <div class="row-fluid">
         <div class="span1">&nbsp;</div>
         <div class="span2">
             <div class="box">
                 {% if user.is_authenticated %}
                     <h2>{{ user.username }}</h2>
-                    <a href="" title="change your location">Geolocation {{ user.geolocation }}</a> <br/>
+
+                    <button id="see-position">Automatic location</button> <br/>
                     <a href="{% url "logout" %}">Sign out</a>
                 {% else %}
                     <a id="fancybox" href="{% url "login" %}">Sign in</a>
@@ -99,7 +105,8 @@
         </div>
         <div class="span8">
             <div class="box">
-
+                <span id="geo-log"></span>
+                
                 {% if election %}
                     <h4 style="padding-top: 4px; padding-bottom: 2px;">{{ election.name }}</h4>
                     election view - bla blerg derpity derp
@@ -110,7 +117,7 @@
 
                 {% else %}
                     <div style="text-align: center">
-                        <br/>
+                        <br/><br/>
                         <h1>OpenVote.US</h1>
                         <br/>
                         <h3>Give every candidate your up or down vote.</h3>
@@ -126,6 +133,64 @@
     </div>
     </div>
     
+
+
+
+
+
+
+
+    <script defer>
+        (function() {
+          var map = null;
+          var geolog = document.querySelector('#geo-log');
+          var geoMap = document.querySelector('#geo-map');
+        
+          function showPosition(position) {
+            geolog.textContent = "You're within " + position.coords.accuracy + " meters of (" + position.coords.latitude + ", " + position.coords.longitude + ")";
+            var latLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+            var marker = new google.maps.Marker({ position: latLng, map: map });
+            map.setCenter(latLng);
+            map.setZoom(9);
+            map.setMapType(G_SATELLITE_MAP);
+          }
+        
+          function handlePositionError(evt) {
+            geolog.textContent = evt.message;
+          }
+        
+          function successPositionHandler(evt) {
+            // Load map if it doesn't already exist and when user clicks the button.
+            if (!map) {
+              map = new google.maps.Map(geoMap, {
+                zoom: 3,
+                center: new google.maps.LatLng(37.4419, -94.1419), // United States
+                mapTypeId: google.maps.MapTypeId.ROADMAP
+              });
+              map.getDiv().style.border =  '1px solid #ccc';
+            }
+        
+            if (navigator.geolocation) {
+              geolog.style.visibility = 'visible';
+              geolog.textContent = 'Looking for location...';
+              navigator.geolocation.getCurrentPosition(showPosition, handlePositionError);
+              // Also monitor position as it changes.
+              //navigator.geolocation.watchPosition(showPosition, handlePositionError);
+            } else {
+              geolog.textContent = 'Oops! Your browser does not support geolocation.';
+            }
+          }
+        
+          document.querySelector('#see-position').addEventListener('click', successPositionHandler, false);
+          geoMap.addEventListener('click', successPositionHandler, false);
+        })();
+    </script>
+
+
+
+
+
+
 </body>
 
 </html>

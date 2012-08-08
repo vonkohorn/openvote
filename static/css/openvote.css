@@ -2,10 +2,15 @@ html { height: 100% }
 body {
     height: 100%;
     margin: 0;
-    padding: 0
+    padding: 0;
 }
 
 #map_canvas { height: 100%; }
+
+.container-fluid {
+    position: relative;
+    z-index: 0;
+}
 
 .box{
 	background-color: #fff;
@@ -19,3 +24,15 @@ body {
 			box-shadow: 2px 5px 30px rgba(0, 0, 0, 0.3);
 }
 
+
+/* For Google Maps with HTML5 geolocation */
+
+#geo-map {
+    height: 100%;
+    width: 100%;
+}
+
+#geo-log {
+    color: blue;
+    padding: 5px;
+}
