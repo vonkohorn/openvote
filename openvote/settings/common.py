@@ -2,6 +2,9 @@
 import dj_database_url
 import os
 
+DEBUG = True
+TEMPLATE_DEBUG = DEBUG
+
 ADMINS = (
     # ('Your Name', 'your_email@example.com'),
 )
@@ -163,6 +166,7 @@ LOGIN_ERROR_URL    = '/login-error/'
 # SOCIAL_AUTH_DISCONNECT_REDIRECT_URL = '/account-disconnected-redirect-url/'
 SOCIAL_AUTH_COMPLETE_URL_NAME  = 'socialauth_complete'
 SOCIAL_AUTH_ASSOCIATE_URL_NAME = 'socialauth_associate_complete'
+SOCIAL_AUTH_RAISE_EXCEPTIONS = DEBUG
 
 try:
 	TWITTER_CONSUMER_KEY		= os.environ['TWITTER_CONSUMER_KEY']

@@ -2,7 +2,6 @@ from ..common import *
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
-SOCIAL_AUTH_RAISE_EXCEPTIONS = DEBUG
 
 DATABASES = {
     'default': {
