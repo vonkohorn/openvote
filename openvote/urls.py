@@ -3,7 +3,6 @@ from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
 urlpatterns = patterns('',
     url(r'^$', 'openvote.views.home', name='home'),
-    url(r'^login$', 'openvote.views.login', name='login'),
     url(r'^logout$', 'openvote.views.logout', name='logout'),
 
     # Include our OAuth urls
