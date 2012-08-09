@@ -41,6 +41,7 @@
             var mapOptions = {
                 center: new google.maps.LatLng(lat, lon),
                 zoom: 5,
+                disableDefaultUI: true,
                 mapTypeId: google.maps.MapTypeId.HYBRID
             };
             var map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
@@ -55,43 +56,41 @@
 
 <body onload='locate()'>
     
-    
     <div id="signinModal" class="modal hide fade">
         <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal">&times;</button>
-            <h3>Sign In</h3>
+            <h2>Sign In</h2>
         </div>
         <div class="modal-body">
-            <h4>Sign in using:</h4>
-            <p>Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem.</p>
-            
-            <h4>Popover in a modal</h4>
-            <p>This <a href="#" class="btn popover-test" title="A Title" data-content="And here's some amazing content. It's very engaging. right?">button</a> should trigger a popover on hover.</p>
-            
-            <h4>Tooltips in a modal</h4>
-            <p><a href="#" class="tooltip-test" title="Tooltip">This link</a> and <a href="#" class="tooltip-test" title="Tooltip">that link</a> should have tooltips on hover.</p>
-            
-            <hr>
-            
-            <h4>Overflowing text to show optional scrollbar</h4>
+            <span style="float: right; width: 140px;">
+                <h3>Why OpenID?</h3>
+                <p>It's a single username and password that allows you to log in to any OpenID-enabled site.  </p>
+                <p>It's an open standard and works on thousands of websites.</p>
+                <a href="http://openid.net/what/">learn more &raquo;</a><br/>
+            </span>
+            <h3>Please select an identity provider:</h3>
+                <a rel="nofollow" href="/login/Google">Google</a></br>
+                <a rel="nofollow" href="/login/twitter">Twitter</a></br>
+                <a rel="nofollow" href="/login/facebook">Facebook</a></br>
+                <hr>
             {% for name in backend %}
                 <a rel="nofollow" href="{% url "socialauth_begin" name %}">{{ name|title }}</a></br>
             {% endfor %}
+
+            <hr style="clear: both;"/>
+            <h3>Thanks.</h3>
+            <p>derp de derp. do we want to say anything here?</p>
+
         </div>
         <div class="modal-footer">
-            <a href="#" class="btn" data-dismiss="modal" >Close</a>
-            <a href="#" class="btn btn-primary">Save changes</a>
+            <a href="#" class="btn" data-dismiss="modal" >Cancel</a>
         </div>
     </div>
-    
-    
-    
-    
 
     <div class="back" id="geo-map">
         <div id="map_canvas"></div>
     </div>
-    <img src="{% static 'g/flag.png' %}" width="120" style="float: left; position: fixed; z-index: 0;"/>
+    <img src="{% static 'g/openvote_button.png' %}" style="float: left; position: fixed; z-index: 0; padding: 10px;"/>
    
     <div class="container">
     <div class="row">
@@ -102,19 +101,9 @@
                 {% if user.is_authenticated %}
                     <h2>{{ user.username }}</h2>
     
-                    <button id="see-position">Automatic location</button> <br/>
+                    <button id="see-position" class="btn btn-primary btn-large">Automatic location</button> <br/>
                     <a href="{% url "logout" %}">Sign out</a>
                 {% else %}
- 
- 
- 
- 
-
- 
-    
-    
-    
-    
                     <a data-toggle="modal" href="#signinModal" class="btn btn-primary btn-large">Sign in</a>
                 {% endif %}
                 <br/>
