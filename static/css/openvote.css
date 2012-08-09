@@ -3,6 +3,7 @@ html {
     font-size: 100%;
     -webkit-text-size-adjust: 100%;
     -ms-text-size-adjust: 100%;
+    *zoom: 1;
 }
 body {
     height: 100%;
@@ -12,6 +13,7 @@ body {
     font-size: 13px;
     line-height: 18px;
     color: #333333;
+    *zoom: 1;
 }
 #map_canvas { height: 100%; }
 
@@ -29,6 +31,7 @@ body {
     padding-right: 60px;
     padding-top: 60px;
     padding-bottom: 60px;
+    *zoom: 1;
 }
 .navpane {
     float: left;
