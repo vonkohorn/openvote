@@ -35,4 +35,6 @@ def _get_client_location(ip):
     u = urllib2.urlopen('http://freegeoip.net/json/{0}'.format(ip))
     decoded = json.load(u)
     u.close()
-    return decoded['latitude'], decoded['longitude']
+    lat = 37.4419 if decoded['latitude'] else decoded['latitude']
+    lon = -94.1419 if decoded['latitude'] else decoded['latitude']
+    return lat, lon
