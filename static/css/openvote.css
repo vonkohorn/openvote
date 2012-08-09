@@ -1,9 +1,7 @@
 html {
     height: 100%;
-    font-size: 100%;
     -webkit-text-size-adjust: 100%;
     -ms-text-size-adjust: 100%;
-    *zoom: 1;
 }
 body {
     height: 100%;
@@ -13,9 +11,8 @@ body {
     font-size: 13px;
     line-height: 18px;
     color: #333333;
-    *zoom: 1;
 }
-#map_canvas { height: 100%; }
+#map_canvas { height: 100%; width: 100%; }
 
 .back {
     position: fixed;
@@ -24,23 +21,10 @@ body {
 .fore {
     position: relative;
     z-index: 0;
-    width: 940px;
-    margin-left: auto;
-    margin-right: auto;
-    padding-left: 60px;
-    padding-right: 60px;
+    padding-left: 20px;
+    padding-right: 20px;
     padding-top: 60px;
     padding-bottom: 60px;
-    *zoom: 1;
-}
-.navpane {
-    float: left;
-    width: 200px;
-}
-.contentpane {
-    float: left;
-    margin-left: 20px;
-    width: 720px;
 }
 .box{
 	background-color: #fff;
@@ -64,95 +48,5 @@ body {
 #geo-log {
     color: blue;
     padding: 5px;
-}
-
-
-/* bootstrapish */
-
-a:focus {
-  outline: thin dotted #333;
-  outline: 5px auto -webkit-focus-ring-color;
-  outline-offset: -2px;
-}
-a:hover, a:active {
-  outline: 0;
-}
-a {
-  color: #0088cc;
-  text-decoration: none;
-}
-a:hover {
-  color: #005580;
-  text-decoration: underline;
-}
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  margin: 0;
-  font-weight: bold;
-  color: #333333;
-  text-rendering: optimizelegibility;
-}
-h1 small,
-h2 small,
-h3 small,
-h4 small,
-h5 small,
-h6 small {
-  font-weight: normal;
-  color: #999999;
-}
-h1 {
-  font-size: 30px;
-  line-height: 36px;
-}
-h1 small {
-  font-size: 18px;
-}
-h2 {
-  font-size: 24px;
-  line-height: 36px;
-}
-h2 small {
-  font-size: 18px;
-}
-h3 {
-  line-height: 27px;
-  font-size: 18px;
-}
-h3 small {
-  font-size: 14px;
-}
-h4, h5, h6 {
-  line-height: 18px;
-}
-h4 {
-  font-size: 14px;
-}
-h4 small {
-  font-size: 12px;
-}
-h5 {
-  font-size: 12px;
-}
-h6 {
-  font-size: 11px;
-  color: #999999;
-  text-transform: uppercase;
-}
-hr {
-  margin: 18px 0;
-  border: 0;
-  border-top: 1px solid #eeeeee;
-  border-bottom: 1px solid #ffffff;
-}
-strong {
-  font-weight: bold;
-}
-em {
-  font-style: italic;
 }
 
