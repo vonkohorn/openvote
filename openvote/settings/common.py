@@ -95,7 +95,7 @@ MIDDLEWARE_CLASSES = (
 )
 
 STATICFILES_DIRS = (
-	os.path.join(PROJECT_ROOT, "static"),
+    os.path.join(PROJECT_ROOT, "static"),
 )
 
 ROOT_URLCONF = 'openvote.urls'
@@ -107,7 +107,7 @@ TEMPLATE_DIRS = (
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
-	PROJECT_ROOT,
+    PROJECT_ROOT,
 )
 
 INSTALLED_APPS = (
@@ -117,13 +117,11 @@ INSTALLED_APPS = (
     'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    # Uncomment the next line to enable the admin:
-    # 'django.contrib.admin',
-    # Uncomment the next line to enable admin documentation:
-    # 'django.contrib.admindocs',
     'gunicorn',
     'social_auth',
-	'django_extensions'
+    'django_extensions',
+    'kombu.transport.django',
+    'djcelery'
 )
 
 # ------- social_auth ------- #
@@ -152,7 +150,7 @@ AUTHENTICATION_BACKENDS = (
 #    'social_auth.backends.contrib.skyrock.SkyrockBackend',
 #    'social_auth.backends.contrib.yahoo.YahooOAuthBackend',
 #    'social_auth.backends.OpenIDBackend',
-	'django.contrib.auth.backends.ModelBackend',
+    'django.contrib.auth.backends.ModelBackend',
 )
 
 LOGIN_URL          = '/login-form/'
@@ -171,30 +169,30 @@ SOCIAL_AUTH_ASSOCIATE_URL_NAME = 'socialauth_associate_complete'
 SOCIAL_AUTH_RAISE_EXCEPTIONS = DEBUG
 
 try:
-	TWITTER_CONSUMER_KEY		= os.environ['TWITTER_CONSUMER_KEY']
-	TWITTER_CONSUMER_SECRET		= os.environ['TWITTER_CONSUMER_SECRET']
-	FACEBOOK_APP_ID				= os.environ['FACEBOOK_APP_ID']
-	FACEBOOK_API_SECRET			= os.environ['FACEBOOK_API_SECRET']
-	LINKEDIN_CONSUMER_KEY		= ''
-	LINKEDIN_CONSUMER_SECRET	= ''
-	ORKUT_CONSUMER_KEY          = ''
-	ORKUT_CONSUMER_SECRET       = ''
-	GOOGLE_CONSUMER_KEY         = ''
-	GOOGLE_CONSUMER_SECRET      = ''
-	GOOGLE_OAUTH2_CLIENT_ID     = ''
-	GOOGLE_OAUTH2_CLIENT_SECRET = ''
-	FOURSQUARE_CONSUMER_KEY     = ''
-	FOURSQUARE_CONSUMER_SECRET  = ''
-	VK_APP_ID                   = ''
-	VK_API_SECRET               = ''
-	LIVE_CLIENT_ID				= ''
-	LIVE_CLIENT_SECRET			= ''
-	SKYROCK_CONSUMER_KEY		= ''
-	SKYROCK_CONSUMER_SECRET		= ''
-	YAHOO_CONSUMER_KEY			= ''
-	YAHOO_CONSUMER_SECRET		= ''
+    TWITTER_CONSUMER_KEY		= os.environ['TWITTER_CONSUMER_KEY']
+    TWITTER_CONSUMER_SECRET		= os.environ['TWITTER_CONSUMER_SECRET']
+    FACEBOOK_APP_ID				= os.environ['FACEBOOK_APP_ID']
+    FACEBOOK_API_SECRET			= os.environ['FACEBOOK_API_SECRET']
+    LINKEDIN_CONSUMER_KEY		= ''
+    LINKEDIN_CONSUMER_SECRET	= ''
+    ORKUT_CONSUMER_KEY          = ''
+    ORKUT_CONSUMER_SECRET       = ''
+    GOOGLE_CONSUMER_KEY         = ''
+    GOOGLE_CONSUMER_SECRET      = ''
+    GOOGLE_OAUTH2_CLIENT_ID     = ''
+    GOOGLE_OAUTH2_CLIENT_SECRET = ''
+    FOURSQUARE_CONSUMER_KEY     = ''
+    FOURSQUARE_CONSUMER_SECRET  = ''
+    VK_APP_ID                   = ''
+    VK_API_SECRET               = ''
+    LIVE_CLIENT_ID				= ''
+    LIVE_CLIENT_SECRET			= ''
+    SKYROCK_CONSUMER_KEY		= ''
+    SKYROCK_CONSUMER_SECRET		= ''
+    YAHOO_CONSUMER_KEY			= ''
+    YAHOO_CONSUMER_SECRET		= ''
 except:
-	pass
+    pass
 
 # ------- Logging ------- #
 
@@ -226,3 +224,14 @@ LOGGING = {
         },
     }
 }
+
+
+# Heroku-specific configs
+
+# For Celery
+BROWSER_BACKEND = 'django'
+
+# For CloudAMQP
+BROKER_POOL_LIMIT = 3
+BROKER_CONNECTION_MAX_RETRIES = 0
+BROKER_URL = os.environ.get('CLOUDAMQP_URL')
