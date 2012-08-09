@@ -13,6 +13,7 @@ httplib2==0.7.4
 ipdb==0.7
 ipython==0.13
 kombu==2.3.2
+newrelic==1.4.0.137
 oauth2==1.5.211
 psycopg2==2.4.5
 python-dateutil==1.5
