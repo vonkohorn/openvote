@@ -8,3 +8,4 @@ include
 lib
 share
 *.db
+celerybeat-schedule
