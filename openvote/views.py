@@ -13,7 +13,7 @@ def home(request):
     client_ip = _get_client_ip(request)
     lat, lon = _get_client_location(client_ip)
     user = request.user
-    backend = [pack[1] for pack in pkgutil.walk_packages([os.path.dirname(backends.__file__)])]
+    # backend = [pack[1] for pack in pkgutil.walk_packages([os.path.dirname(backends.__file__)])]
     return render_to_response('openvote/templates/home.html', locals())
 
 def logout(request):

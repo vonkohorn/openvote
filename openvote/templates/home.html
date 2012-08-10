@@ -59,31 +59,24 @@
     <div id="signinModal" class="modal hide fade">
         <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal">&times;</button>
-            <h2>Sign In</h2>
+            <h2>Please sign in to vote and view results</h2>
         </div>
         <div class="modal-body">
             <span style="float: right; width: 140px;">
                 <h3>Why OpenID?</h3>
                 <p>It's a single username and password that allows you to log in to any OpenID-enabled site.  </p>
                 <p>It's an open standard and works on thousands of websites.</p>
-                <a href="http://openid.net/what/">learn more &raquo;</a><br/>
+                <a href="http://openid.net/what/">learn more &raquo;</a><br/><br/>
             </span>
             <h3>Please select an identity provider:</h3>
                 <a rel="nofollow" href="/login/Google">Google</a></br>
                 <a rel="nofollow" href="/login/twitter">Twitter</a></br>
                 <a rel="nofollow" href="/login/facebook">Facebook</a></br>
-                <hr>
-            {% for name in backend %}
-                <a rel="nofollow" href="{% url "socialauth_begin" name %}">{{ name|title }}</a></br>
-            {% endfor %}
-
-            <hr style="clear: both;"/>
-            <h3>Thanks.</h3>
-            <p>derp de derp. do we want to say anything here?</p>
-
         </div>
-        <div class="modal-footer">
-            <a href="#" class="btn" data-dismiss="modal" >Cancel</a>
+        <div class="modal-footer" style="clear: both;">
+            <span style="float: left; margin-right: 20px;"><h3><a href="/">OpenVote.US</a></h3></span>
+            <span style="float: right; margin-left: 20px;"><a href="#" class="btn" data-dismiss="modal" >Cancel</a></span>
+            Democracy works best when more people participate.  Thank you for <a href="viral marketing links">spreading the word</a>! 
         </div>
     </div>
 
@@ -100,12 +93,11 @@
 
                 {% if user.is_authenticated %}
                     <h2>{{ user.username }}</h2>
-    
-                    <button id="see-position" class="btn btn-primary btn-large">Automatic location</button> <br/>
-                    <a href="{% url "logout" %}">Sign out</a>
+                    <a href="{% url "logout" %}" class="btn">Sign out</a>
                 {% else %}
-                    <a data-toggle="modal" href="#signinModal" class="btn btn-primary btn-large">Sign in</a>
+                    <a data-toggle="modal" href="#signinModal" class="btn btn-primary">Sign in</a>
                 {% endif %}
+                    <button id="see-position" class="btn btn-info">Search location</button> <br/>
                 <br/>
                 <br/>
                 <h3>Your Elections</h3>
