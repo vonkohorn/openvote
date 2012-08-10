@@ -122,7 +122,9 @@ INSTALLED_APPS = (
     'django_extensions',
     'kombu.transport.django',
     'djcelery',
-    'rest'
+    'rest',
+    'elections',
+    'openvote',
 )
 
 # ------- social_auth ------- #
