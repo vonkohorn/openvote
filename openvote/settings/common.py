@@ -121,7 +121,8 @@ INSTALLED_APPS = (
     'social_auth',
     'django_extensions',
     'kombu.transport.django',
-    'djcelery'
+    'djcelery',
+    'rest'
 )
 
 # ------- social_auth ------- #
@@ -229,9 +230,9 @@ LOGGING = {
 # Heroku-specific configs
 
 # For Celery
-BROWSER_BACKEND = 'django'
-
-# For CloudAMQP
+BROKER_BACKEND = 'django'
 BROKER_POOL_LIMIT = 3
 BROKER_CONNECTION_MAX_RETRIES = 0
 BROKER_URL = os.environ.get('CLOUDAMQP_URL')
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_DISABLE_RATE_LIMITS = True
