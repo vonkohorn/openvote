@@ -125,6 +125,7 @@ INSTALLED_APPS = (
     'rest',
     'elections',
     'openvote',
+    'tastypie',
 )
 
 # ------- social_auth ------- #

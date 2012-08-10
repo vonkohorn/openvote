@@ -37,7 +37,7 @@ class Vote(models.Model):
     approval = models.BooleanField()
     created = models.DateTimeField(auto_now_add=True)
 
-class InterestEstimate():
+class InterestEstimate(models.Model):
     voter = models.ForeignKey(Voter)
     election = models.ForeignKey(Election)
     distance = models.PositiveIntegerField()   # meters
