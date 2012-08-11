@@ -79,24 +79,6 @@
       	      }, 0);
          }
      })(navigator.userAgent||navigator.vendor||window.opera, document);
-  </script>
-    <script src="static/eventsource.js"></script>
-    <script>
-      var es = new EventSource('http://localhost:8081/events');
-      es.addEventListener('open', function (event) {
-        var div = document.createElement('div');
-        div.innerHTML = 'opened: ' + es.url;
-        document.body.appendChild(div);
-      });
-      es.addEventListener('message', function (event) {
-        document.body.appendChild(document.createTextNode(event.data));
-        window.Backbone.EventBroker.trigger('lame', event.data);
-      });
-      es.addEventListener('error', function (event) {
-        var div = document.createElement('div');
-        div.innerHTML = 'closed';
-        document.body.appendChild(div);
-      });
     </script>
 </head>
 
