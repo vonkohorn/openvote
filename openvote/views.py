@@ -8,7 +8,7 @@ from django.shortcuts import render_to_response, redirect
 
 from social_auth import backends
 
-# Create your views here.
+# Views
 def home(request):
     client_ip = _get_client_ip(request)
     lat, lon = _get_client_location(client_ip)
@@ -20,6 +20,19 @@ def logout(request):
     auth_logout(request)
     return redirect("home")
 
+def about(request):
+    return render_to_response('openvote/templates/about.html', locals())
+def help(request):
+    return render_to_response('openvote/templates/help.html', locals())
+def terms(request):
+    return render_to_response('openvote/templates/terms.html', locals())
+def privacy(request):
+    return render_to_response('openvote/templates/privacy.html', locals())
+def code(request):
+    return render_to_response('openvote/templates/code.html', locals())
+    
+
+# Internal
 def _get_client_ip(request):
     x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
     if x_forwarded_for:
@@ -35,3 +48,4 @@ def _get_client_location(ip):
     lat = 37.4419 if decoded['latitude'] else decoded['latitude']
     lon = -94.1419 if decoded['latitude'] else decoded['latitude']
     return lat, lon
+

@@ -1,0 +1,42 @@
+{% if user.is_authenticated %}
+    <h2>{{ user.username }}</h2>
+    <a href="{% url "logout" %}" class="btn">Sign out</a>
+{% else %}
+    <a data-toggle="modal" href="#signinModal" class="btn btn-primary">Sign in</a>
+{% endif %}
+    <button id="see-position" class="btn btn-info">Search location</button> <br/>
+<br/>
+<br/>
+<h3>Your Elections</h3>
+    <div style="padding-left: 8px;">
+
+    {% for election in elections %}
+        <h4 style="padding-top: 4px; padding-bottom: 2px;">{{ election.name }}</h4>
+        {% for candidate in election.candidates %}
+            <input type="checkbox" {% if candidate.approved %}CHECKED{% endif %}/> {{ candidate.name }} <br/>
+        {% endfor %}
+            <br/>
+    {% endfor %}
+
+        <h4 style="padding-top: 4px; padding-bottom: 2px;">US Presidency</h4>
+            <input type="checkbox" CHECKED/> Barack Obama <br/>
+            <input type="checkbox" /> Mitt Romnington III <br/>
+            <br/>
+
+        <h4 style="padding-top: 4px; padding-bottom: 2px;">US Presidency</h4>
+            <input type="checkbox" CHECKED/> Barack Obama <br/>
+            <input type="checkbox" /> Mitt Romnington III <br/>
+            <br/>
+
+        <h4 style="padding-top: 4px; padding-bottom: 2px;">US Presidency</h4>
+            <input type="checkbox" CHECKED/> Barack Obama <br/>
+            <input type="checkbox" /> Mitt Romnington III <br/>
+            <br/>
+
+        <h4 style="padding-top: 4px; padding-bottom: 2px;"><a href="/api/v1/election/?format=json">More</a></h4>
+            <br/>
+
+    </div>
+<br/>
+<br/>
+<a href="https://register.rockthevote.com/registrants/new">Register to Vote</a>

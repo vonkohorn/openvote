@@ -24,9 +24,12 @@ body {
     padding-top: 65px;
     padding-bottom: 80px;
 }
+.row {
+}
 .box{
 	background-color: #fff;
 	padding:12px;
+    margin-bottom: 12px;
 	border:1px solid #3366cc;
 	-webkit-border-radius: 6px;
 	   -moz-border-radius: 6px;
