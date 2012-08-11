@@ -6,6 +6,7 @@ define(['jquery','backbone','views/view', 'views/anotherView'], function($, Back
         
             // Tells Backbone to start watching for hashchange events
             Backbone.history.start();
+            Backbone.EventBroker.on('lame', this.lame, this);
 
         },
 
@@ -15,6 +16,10 @@ define(['jquery','backbone','views/view', 'views/anotherView'], function($, Back
             // When there is no hash bang on the url, the home method is called
             '': 'home'
 
+        },
+
+        'lame': function(data){
+            console.log(data);
         },
 
         'home': function(){
