@@ -64,8 +64,8 @@
               //Mobile JavaScript
       	      setTimeout(function() {
       	          var script = d.createElement('script');
-                  script.setAttribute("data-main", "js/mobile");
-                  script.src = "js/libs/require-2.0.5.js";
+                  script.setAttribute("data-main", "static/js/mobile");
+                  script.src = "static/js/libs/require-2.0.5.js";
                   d.body.appendChild(script);
       	      }, 0);
           }
@@ -73,13 +73,31 @@
           else {
       	      setTimeout(function() {
       	          var script = d.createElement('script');
-                  script.setAttribute("data-main", "js/desktop");
-                  script.src = "js/libs/require-2.0.5.js";
+                  script.setAttribute("data-main", "static/js/desktop");
+                  script.src = "static/js/libs/require-2.0.5.js";
                   d.body.appendChild(script);
       	      }, 0);
          }
      })(navigator.userAgent||navigator.vendor||window.opera, document);
   </script>
+    <script src="static/eventsource.js"></script>
+    <script>
+      var es = new EventSource('http://localhost:8081/events');
+      es.addEventListener('open', function (event) {
+        var div = document.createElement('div');
+        div.innerHTML = 'opened: ' + es.url;
+        document.body.appendChild(div);
+      });
+      es.addEventListener('message', function (event) {
+        document.body.appendChild(document.createTextNode(event.data));
+        window.Backbone.EventBroker.trigger('lame', event.data);
+      });
+      es.addEventListener('error', function (event) {
+        var div = document.createElement('div');
+        div.innerHTML = 'closed';
+        document.body.appendChild(div);
+      });
+    </script>
 </head>
 
 
@@ -202,7 +220,6 @@
                 
             </div>
         </div>
-
     </div>
     </div>
     
