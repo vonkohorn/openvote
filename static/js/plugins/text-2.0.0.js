@@ -1,9 +1,9 @@
 /**
- * @license RequireJS text 2.0.2 Copyright (c) 2010-2012, The Dojo Foundation All Rights Reserved.
+ * @license RequireJS text 2.0.0 Copyright (c) 2010-2012, The Dojo Foundation All Rights Reserved.
  * Available via the MIT or new BSD license.
  * see: http://github.com/requirejs/text for details
  */
-/*jslint regexp: true */
+/*jslint */
 /*global require: false, XMLHttpRequest: false, ActiveXObject: false,
   define: false, window: false, process: false, Packages: false,
   java: false, location: false */
@@ -11,8 +11,7 @@
 define(['module'], function (module) {
     'use strict';
 
-    var text, fs,
-        progIds = ['Msxml2.XMLHTTP', 'Microsoft.XMLHTTP', 'Msxml2.XMLHTTP.4.0'],
+    var progIds = ['Msxml2.XMLHTTP', 'Microsoft.XMLHTTP', 'Msxml2.XMLHTTP.4.0'],
         xmlRegExp = /^\s*<\?xml(\s)+version=[\'\"](\d)*.(\d)*[\'\"](\s)*\?>/im,
         bodyRegExp = /<body[^>]*>\s*([\s\S]+)\s*<\/body>/im,
         hasLocation = typeof location !== 'undefined' && location.href,
@@ -20,10 +19,11 @@ define(['module'], function (module) {
         defaultHostName = hasLocation && location.hostname,
         defaultPort = hasLocation && (location.port || undefined),
         buildMap = [],
-        masterConfig = (module.config && module.config()) || {};
+        masterConfig = module.config(),
+        text, fs;
 
     text = {
-        version: '2.0.2',
+        version: '2.0.0',
 
         strip: function (content) {
             //Strips <?xml ...?> declarations so that external SVG and XML
@@ -47,18 +47,16 @@ define(['module'], function (module) {
                 .replace(/[\b]/g, "\\b")
                 .replace(/[\n]/g, "\\n")
                 .replace(/[\t]/g, "\\t")
-                .replace(/[\r]/g, "\\r")
-                .replace(/[\u2028]/g, "\\u2028")
-                .replace(/[\u2029]/g, "\\u2029");
+                .replace(/[\r]/g, "\\r");
         },
 
-        createXhr: masterConfig.createXhr || function () {
+        createXhr: function () {
             //Would love to dump the ActiveX crap in here. Need IE 6 to die first.
             var xhr, i, progId;
             if (typeof XMLHttpRequest !== "undefined") {
                 return new XMLHttpRequest();
             } else if (typeof ActiveXObject !== "undefined") {
-                for (i = 0; i < 3; i += 1) {
+                for (i = 0; i < 3; i++) {
                     progId = progIds[i];
                     try {
                         xhr = new ActiveXObject(progId);
@@ -113,8 +111,8 @@ define(['module'], function (module) {
          * @returns Boolean
          */
         useXhr: function (url, protocol, hostname, port) {
-            var uProtocol, uHostName, uPort,
-                match = text.xdRegExp.exec(url);
+            var match = text.xdRegExp.exec(url),
+                uProtocol, uHostName, uPort;
             if (!match) {
                 return true;
             }
@@ -126,7 +124,7 @@ define(['module'], function (module) {
             uHostName = uHostName[0];
 
             return (!uProtocol || uProtocol === protocol) &&
-                   (!uHostName || uHostName.toLowerCase() === hostname.toLowerCase()) &&
+                   (!uHostName || uHostName === hostname) &&
                    ((!uPort && !uHostName) || uPort === port);
         },
 
@@ -233,14 +231,42 @@ define(['module'], function (module) {
             }
             callback(file);
         };
-    } else if (typeof Packages !== 'undefined' && typeof java !== 'undefined') {
+    } else if (text.createXhr()) {
+        text.get = function (url, callback, errback) {
+            var xhr = text.createXhr();
+            xhr.open('GET', url, true);
+
+            //Allow overrides specified in config
+            if (masterConfig.onXhr) {
+                masterConfig.onXhr(xhr, url);
+            }
+
+            xhr.onreadystatechange = function (evt) {
+                var status, err;
+                //Do not explicitly handle errors, those should be
+                //visible via console output in the browser.
+                if (xhr.readyState === 4) {
+                    status = xhr.status;
+                    if (status > 399 && status < 600) {
+                        //An http 4xx or 5xx error. Signal an error.
+                        err = new Error(url + ' HTTP status: ' + status);
+                        err.xhr = xhr;
+                        errback(err);
+                    } else {
+                        callback(xhr.responseText);
+                    }
+                }
+            };
+            xhr.send(null);
+        };
+    } else if (typeof Packages !== 'undefined') {
         //Why Java, why is this so awkward?
         text.get = function (url, callback) {
-            var stringBuffer, line,
-                encoding = "utf-8",
+            var encoding = "utf-8",
                 file = new java.io.File(url),
                 lineSeparator = java.lang.System.getProperty("line.separator"),
                 input = new java.io.BufferedReader(new java.io.InputStreamReader(new java.io.FileInputStream(file), encoding)),
+                stringBuffer, line,
                 content = '';
             try {
                 stringBuffer = new java.lang.StringBuffer();
@@ -270,34 +296,6 @@ define(['module'], function (module) {
                 input.close();
             }
             callback(content);
-        };
-    } else if (text.createXhr()) {
-        text.get = function (url, callback, errback) {
-            var xhr = text.createXhr();
-            xhr.open('GET', url, true);
-
-            //Allow overrides specified in config
-            if (masterConfig.onXhr) {
-                masterConfig.onXhr(xhr, url);
-            }
-
-            xhr.onreadystatechange = function (evt) {
-                var status, err;
-                //Do not explicitly handle errors, those should be
-                //visible via console output in the browser.
-                if (xhr.readyState === 4) {
-                    status = xhr.status;
-                    if (status > 399 && status < 600) {
-                        //An http 4xx or 5xx error. Signal an error.
-                        err = new Error(url + ' HTTP status: ' + status);
-                        err.xhr = xhr;
-                        errback(err);
-                    } else {
-                        callback(xhr.responseText);
-                    }
-                }
-            };
-            xhr.send(null);
         };
     }
 
