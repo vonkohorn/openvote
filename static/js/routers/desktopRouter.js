@@ -1,4 +1,4 @@
-define(['jquery','backbone','views/view', 'views/anotherView'], function($, Backbone, MainView, AnotherView){
+define(['jquery','backbone','views/appView'], function($, Backbone, AppView){
 
     var Router = Backbone.Router.extend({
 
@@ -6,7 +6,7 @@ define(['jquery','backbone','views/view', 'views/anotherView'], function($, Back
         
             // Tells Backbone to start watching for hashchange events
             Backbone.history.start();
-            Backbone.EventBroker.on('lame', this.lame, this);
+            // Backbone.EventBroker.on('lame', this.lame, this);
 
         },
 
@@ -18,21 +18,17 @@ define(['jquery','backbone','views/view', 'views/anotherView'], function($, Back
 
         },
 
-        'lame': function(data){
-            console.log(data);
-        },
+//        'lame': function(data){
+//            console.log(data);
+//        },
 
         'home': function(){
 
             // Instantiating mainView and anotherView instances
-            var mainView = new MainView(),
-                anotherView = new AnotherView();
+            var appView = new AppView();
 
             // Renders the mainView template
-            mainView.render();
-
-            // anotherView.js extends view.js.  anotherView.js does not have a promptUser method, so JavaScript looks up the prototype chain and uses the view.js promptUser method instead.
-            anotherView.promptUser();
+            appView.render();
 
         }
     });

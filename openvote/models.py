@@ -1,6 +1,8 @@
+#from model.wha? import user
 from django.db import models
 
 class Voter(models.Model):
+#    user = models.ForeignKey(User)
     anonkey = models.CharField(max_length=40)
 
     first_name = models.CharField(max_length=50)
