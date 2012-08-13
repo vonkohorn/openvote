@@ -1,32 +1,37 @@
 <div class="box">
-
-    <button style="float: right;" id="see-position" class="btn btn-info">Search location</button>
-    <% if (voter.is_authenticated) { %>
-        <a style="float: left;" id="signout" class="btn">Sign out</a>
-        <hr/>
-        <h2><%= voter.name %></h2>
-    <% } else { %>
-        <!-- <a id="signin" data-toggle="modal" href="#signinModal" class="btn btn-primary">Sign in</a> -->
-        <a style="float: left;" id="signin" class="btn btn-primary">Sign in</a>
-        <hr/>
-        <h2>Welcome, guest</h2>
-    <% } %>
-    <hr/>
-    <h3>Voter ID: <%= voterid %></h3>
-    <hr/>
-    <h3>Your Elections</h3>
-
-    <% _.each(elections, function(election) { %>
-        <h4 style="margin-left: 8px;">{{ e.name }}</h4>
-        <% _.each(election.candidates, function(candidate) { %>
-            <input style="margin-left: 16px;" type="checkbox" CHECKED /> <% candidate.name %> <br/>
-        <% }) %>
-            <br/>
-    <% }) %>
     
+    <button id="see-position" class="btn btn-info" style="float: right;">Search location</button>
+    <% if (voter.is_authenticated) { %>
+        <a id="signout" class="btn">Sign out</a>
+        <hr/>
+        <h3><%= voter.name %></h3>
+        <hr/>
+        <h3>Voter ID: <%= voterid %></h3>
+        <hr/>
+     <% } else { %>
+        <!-- <a id="signin" data-toggle="modal" href="#signinModal" class="btn btn-primary">Sign in</a> -->
+        <a id="signin" class="btn btn-primary">Sign in</a>
+        <hr/>
+        <h3>Welcome Guest!</h3>
+        <hr/>
+    <% } %>
+
+
+    <% _.each (elections, function(e) { %>
+        <h4 style="margin-left: 8px;"><%= e.name %></h4>
+        <% _.each (e.candidates, function(c) { %>
+            <input style="margin-left: 16px;" type="checkbox" CHECKED> <a href="#/candidate/<%= c.id %>"><%= c.name %> (<%= c.id %>)</a><br/>
+        <% }); %>
+            <br/>
+    <% }); %>
+
+    <hr/>
+
     <h4>&rsaquo; <a href="/api/v1/election/?format=json">More Elections</a></h4>
     <h4>&rsaquo; <a href="/api/v1/election/?format=json">Add New Election</a></h4>
-    <br/>
-    <br/>
-    <a href="https://register.rockthevote.com/registrants/new">Register to Vote</a>
+
+    <hr/>
+    
+    <a href="https://register.rockthevote.com/registrants/new" target="_new">Register to Vote</a>
+    
 </div>

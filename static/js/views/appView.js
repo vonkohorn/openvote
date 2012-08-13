@@ -2,7 +2,6 @@ define( function(require) {
     var $ = require('jquery')
     , Backbone = require('backbone')
     , Voter = require('models/voter')
-    , Voters = require('collections/voters')
     , Election = require('models/election')
     , Elections = require('collections/elections')
     , t_footer = require('text!templates/footer.html')
@@ -17,8 +16,6 @@ define( function(require) {
         // View constructor
         initialize: function() {
 
-            this.voterid = $('#voterid').html()
-
             // Get/Sync model values from the server... how do?
             this.voter = new Voter({ name: "Thomas Derpty",
                                    is_authenticated: true });
@@ -30,19 +27,26 @@ define( function(require) {
               //avglat: 0,
               //avglon: 0,
               //geoupdates: 0 });
-            this.voters = new Voters();
             //this.voter.save();
-            this.voters.fetch();
+
+            //this.elections = new Election();
+            //this.elections.fetch();
 
             this.election = new Election({ name: "President of the United States of America",
                                    description: "Some long description.",
                                    candidates: [{name: "Barack", id: 1}, {name: "Mitt", id: 2}],
                                    });
 
+            this.election2 = new Election({ name: "Another Election",
+                                   description: "Another long description.",
+                                   candidates: [{name: "Lame Dumberson", id: 3}, {name: "Lamer Derpington", id: 4}],
+                                   });
+
             // Set global parameters for the templates
-            this.params = {voterid: $('#voterid').html(),
+            this.params = {voterid: $('#voterid').val(),
                            voter: this.voter.toJSON(),
-                           elections: [this.election.toJSON()],
+                           election: this.election.toJSON(),
+                           elections: [this.election.toJSON(), this.election2.toJSON()],
                       }
 
             // Set the view's templates
@@ -57,7 +61,6 @@ define( function(require) {
             this.$el.find("#nav").html(this.nav);
             this.$el.find("#maincontent").html(this.maincontent);
             console.log("UI Rendered.");
-            console.log(this.voters.toJSON());
         },
         
         events: {

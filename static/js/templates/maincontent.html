@@ -1,16 +1,29 @@
 <div class="box">
-    
     <span id="geo-log"></span>
-    
-    {% if election %}
-        <h4 style="padding-top: 4px; padding-bottom: 2px;">{{ election.name }}</h4>
-        election view - bla blerg derpity derp
 
-    {% elif candidate %}
-        <h4 style="padding-top: 4px; padding-bottom: 2px;">{{ candidate.name }}</h4>
+    <% if (election) { %>
+        <h1><%= election.name %></h1>
+        <%= election.desc %><br/>
+
+        <% _.each (election.candidates, function(c) { %>
+            Name: <%= c.name %><br/>
+            ID: <%= c.id %><br/>
+            <br/>
+        <% }); %><br/>
+
+        This is the election view
+            
+
+    <% } else if (candidate) { %>
+        <h4 style="padding-top: 4px; padding-bottom: 2px;"><%= candidate.name %></h4>
         candidate view - bla blerg derpity derp
 
-    {% else %}
+        This is the candidate view
+        
+        
+
+    <% } else { %>
+        
         <div style="text-align: center">
             <br/><br/>
             <h1>OpenVote.US</h1>
@@ -19,8 +32,10 @@
             <h4>Better elections and a better country through better voting.</h4>
             <br/><br/>
         </div>
+        This is the default view<br/>
+        <br/>
         bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla 
 
-    {% endif %}
+    <% } %>
     
 </div>
