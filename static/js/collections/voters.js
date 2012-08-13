@@ -1,9 +1,12 @@
-define(['jquery', 'backbone'], function($, Backbone) {
+define( function(require) {
+    var $ = require('jquery')
+    , Backbone = require('backbone')
+    , Voter = require('models/voter')
 
-    var Voter = Backbone.Model.extend({
+    var Voters = Backbone.Collection.extend({
 
             urlRoot: '/api/v1/voter/',
-            idAttribute: '_id',
+            model: Voter,
 
             defaults: {
 	            message: "You are now using Backbone, Lodash, Require, Modernizr, and jQuery! (Click Me)"
@@ -20,8 +23,8 @@ define(['jquery', 'backbone'], function($, Backbone) {
             }
 
     });
- 
+
     // Returns the Model class
-    return Voter;
+    return Voters;
 
 });
