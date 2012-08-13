@@ -16,7 +16,9 @@ define( function(require) {
 
         // View constructor
         initialize: function() {
-            
+
+            this.voterid = $('#voterid').html()
+
             // Get/Sync model values from the server... how do?
             this.voter = new Voter({ name: "Thomas Derpty",
                                    is_authenticated: true });
@@ -31,14 +33,16 @@ define( function(require) {
             this.voters = new Voters();
             //this.voter.save();
             this.voters.fetch();
+
             this.election = new Election({ name: "President of the United States of America",
                                    description: "Some long description.",
                                    candidates: [{name: "Barack", id: 1}, {name: "Mitt", id: 2}],
                                    });
 
             // Set global parameters for the templates
-            this.params = {voter: this.voter.toJSON(),
-                      election: this.election.toJSON(),
+            this.params = {voterid: $('#voterid').html(),
+                           voter: this.voter.toJSON(),
+                           elections: [this.election.toJSON()],
                       }
 
             // Set the view's templates

@@ -7,7 +7,8 @@ class Voter(models.Model):
 
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50)
-    nickname = models.CharField(max_length=30)
+    nickname = models.CharField(max_length=50)
+    provider = models.CharField(max_length=50)
     
     lastlat = models.DecimalField(max_digits=7, decimal_places=4)
     lastlon = models.DecimalField(max_digits=7, decimal_places=4)

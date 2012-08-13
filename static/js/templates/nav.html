@@ -1,46 +1,31 @@
 <div class="box">
 
+    <button style="float: right;" id="see-position" class="btn btn-info">Search location</button>
     <% if (voter.is_authenticated) { %>
+        <a style="float: left;" id="signout" class="btn">Sign out</a>
+        <hr/>
         <h2><%= voter.name %></h2>
-        <a id="signout" class="btn">Sign out</a>
     <% } else { %>
         <!-- <a id="signin" data-toggle="modal" href="#signinModal" class="btn btn-primary">Sign in</a> -->
-        <a id="signin" class="btn btn-primary">Sign in</a>
+        <a style="float: left;" id="signin" class="btn btn-primary">Sign in</a>
+        <hr/>
+        <h2>Welcome, guest</h2>
     <% } %>
-
-        <button id="see-position" class="btn btn-info">Search location</button> <br/>
-    <br/>
-    <br/>
+    <hr/>
+    <h3>Voter ID: <%= voterid %></h3>
+    <hr/>
     <h3>Your Elections</h3>
-        <div style="padding-left: 8px;">
+
+    <% _.each(elections, function(election) { %>
+        <h4 style="margin-left: 8px;">{{ e.name }}</h4>
+        <% _.each(election.candidates, function(candidate) { %>
+            <input style="margin-left: 16px;" type="checkbox" CHECKED /> <% candidate.name %> <br/>
+        <% }) %>
+            <br/>
+    <% }) %>
     
-        {% for election in elections %}
-            <h4 style="padding-top: 4px; padding-bottom: 2px;">{{ election.name }}</h4>
-            {% for candidate in election.candidates %}
-                <input type="checkbox" {% if candidate.approved %}CHECKED{% endif %}/> {{ candidate.name }} <br/>
-            {% endfor %}
-                <br/>
-        {% endfor %}
-    
-            <h4 style="padding-top: 4px; padding-bottom: 2px;">US Presidency</h4>
-                <input type="checkbox" CHECKED/> Barack Obama <br/>
-                <input type="checkbox" /> Mitt Romnington III <br/>
-                <br/>
-    
-            <h4 style="padding-top: 4px; padding-bottom: 2px;">US Presidency</h4>
-                <input type="checkbox" CHECKED/> Barack Obama <br/>
-                <input type="checkbox" /> Mitt Romnington III <br/>
-                <br/>
-    
-            <h4 style="padding-top: 4px; padding-bottom: 2px;">US Presidency</h4>
-                <input type="checkbox" CHECKED/> Barack Obama <br/>
-                <input type="checkbox" /> Mitt Romnington III <br/>
-                <br/>
-    
-            <h4 style="padding-top: 4px; padding-bottom: 2px;"><a href="/api/v1/election/?format=json">More</a></h4>
-                <br/>
-    
-        </div>
+    <h4>&rsaquo; <a href="/api/v1/election/?format=json">More Elections</a></h4>
+    <h4>&rsaquo; <a href="/api/v1/election/?format=json">Add New Election</a></h4>
     <br/>
     <br/>
     <a href="https://register.rockthevote.com/registrants/new">Register to Vote</a>
