@@ -9,8 +9,9 @@ require.config({
       jquery: "libs/jquery-1.8.0",
       underscore: "libs/lodash-0.4.2",
       backbone: "libs/backbone-0.9.2",
-      events: "libs/backbone-eventbroker.amd",
       io: "libs/socket.io",
+      events: "plugins/backbone-eventbroker.amd",
+      tastypie: "plugins/backbone-tastypie",
 
       // Require.js Plugins
       text: "plugins/text-2.0.0"
@@ -20,13 +21,19 @@ require.config({
   // Sets the configuration for your third party scripts that are not AMD compatible
   shim: {
 
+      "tastypie": {
+          deps: ["backbone", "jquery", "underscore"]
+      },
+      "events": {
+          deps: ["backbone", "jquery", "underscore"]
+      },
       "backbone": {
           deps: ["underscore", "jquery"],
           exports: "Backbone"  //attaches "Backbone" to the window object
       },
       "io": {
-          deps: ["events", "backbone", "underscore", "jquery"],
-          exports: "io"
+          deps: [],
+          exports: "io"        //attaches "io" to the window object
       }
 
   } // end Shim Configuration
@@ -34,7 +41,7 @@ require.config({
 });
 
 // Include Desktop Specific JavaScript files here (or inside of your Desktop router)
-require(['modernizr','jquery','backbone','events','routers/desktopRouter','io'], function(Modernizr, $, Backbone, Events, Desktop, io) {
+require(['modernizr','jquery','backbone','events','routers/desktopRouter','io','tastypie'], function(Modernizr, $, Backbone, Events, Desktop, io) {
 
     // Instantiates a new Router
     this.router = new Desktop();
