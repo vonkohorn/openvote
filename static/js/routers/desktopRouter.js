@@ -14,7 +14,9 @@ define(['jquery','backbone','views/appView'], function($, Backbone, AppView){
         routes: {
 
             // When there is no hash bang on the url, the home method is called
-            '': 'home'
+            '': 'home',
+            'candidate/:id': 'candidate',
+            'election/:id': 'election',
 
         },
 
@@ -30,7 +32,25 @@ define(['jquery','backbone','views/appView'], function($, Backbone, AppView){
             // Renders the mainView template
             appView.render();
 
-        }
+        },
+
+        'candidate': function(id){
+            var appView = new AppView();
+            appView.render();
+            Backbone.EventBroker.trigger
+            console.log("Candidate selected: Candidate ID = " + id);
+        },
+        
+        'election': function(id) {
+            var appView = new AppView();
+            appView.render();
+//            this.election = 
+  //          var electionView = new ElectionView({model: this.election});
+    //        electionView.render();
+            console.log("Election selected: Election ID = " + id);
+        },
+        
+        
     });
 
     // Returns the Router class

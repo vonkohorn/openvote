@@ -15,20 +15,24 @@
         <h3>Welcome Guest!</h3>
         <hr/>
     <% } %>
-
-
+    
+    <div style="margin-left: 8px;">
     <% _.each (elections, function(e) { %>
-        <h4 style="margin-left: 8px;"><%= e.name %></h4>
+        <a href="#/election/<%= e.id %>"><h4><%= e.name %></h4></a>
+        <div style="margin-left: 8px;">
         <% _.each (e.candidates, function(c) { %>
-            <input style="margin-left: 16px;" type="checkbox" CHECKED> <a href="#/candidate/<%= c.id %>"><%= c.name %> (<%= c.id %>)</a><br/>
+            <input class="vote" data-candidateid="<%= c.id %>" type="checkbox" <% if (c.approved) { %>CHECKED<% } %> >
+            <a href="#/candidate/<%= c.id %>"><h5><%= c.name %> (cid=<%= c.id %>)</h5></a>
         <% }); %>
-            <br/>
+        </div>
+        <br/>
     <% }); %>
-
+    </div>
+    
     <hr/>
 
-    <h4>&rsaquo; <a href="/api/v1/election/?format=json">More Elections</a></h4>
-    <h4>&rsaquo; <a href="/api/v1/election/?format=json">Add New Election</a></h4>
+    <h4><a href="/api/v1/election/?format=json">More Elections</a></h4>
+    <h4><a href="/api/v1/election/?format=json">Add New Election</a></h4>
 
     <hr/>
     

@@ -4,6 +4,7 @@ define( function(require) {
     , Voter = require('models/voter')
     , Election = require('models/election')
     , Elections = require('collections/elections')
+    , ElectionView = require('views/electionView')
     , t_footer = require('text!templates/footer.html')
     , t_nav = require('text!templates/nav.html')
     , t_maincontent = require('text!templates/maincontent.html')
@@ -12,34 +13,29 @@ define( function(require) {
 
         // Represents the actual DOM element that corresponds to your View (There is a one to one relationship between View Objects and DOM elements)
         el: '#app-container',
+        
+        broker: Backbone.EventBroker,
 
         // View constructor
         initialize: function() {
 
-            // Get/Sync model values from the server... how do?
             this.voter = new Voter({ name: "Thomas Derpty",
                                    is_authenticated: true });
-            //this.voter = new Voter({ first_name: "Lame",
-              //last_name: "Lame",
-              //nickname: "Senor Lamepocalypse",
-              //lastlat: 0,
-              //lastlon: 0,
-              //avglat: 0,
-              //avglon: 0,
-              //geoupdates: 0 });
             //this.voter.save();
 
             //this.elections = new Election();
             //this.elections.fetch();
 
-            this.election = new Election({ name: "President of the United States of America",
-                                   description: "Some long description.",
-                                   candidates: [{name: "Barack", id: 1}, {name: "Mitt", id: 2}],
+            this.election = new Election({ id: 1,
+                                         name: "President of the United States of America",
+                                         description: "Some long description.",
+                                         candidates: [{name: "Barack", id: 1}, {name: "Mitt", id: 2}],
                                    });
 
-            this.election2 = new Election({ name: "Another Election",
-                                   description: "Another long description.",
-                                   candidates: [{name: "Lame Dumberson", id: 3}, {name: "Lamer Derpington", id: 4}],
+            this.election2 = new Election({ id: 2,
+                                         name: "Another Election",
+                                         description: "Another long description.",
+                                         candidates: [{name: "Lame Dumberson", id: 3}, {name: "Lamer Derpington", id: 4}],
                                    });
 
             // Set global parameters for the templates
@@ -56,31 +52,47 @@ define( function(require) {
         },
         
         render: function() {
+            console.log("appView.render defaults");
 
-            this.$el.find("#footer").html(this.footer);
-            this.$el.find("#nav").html(this.nav);
             this.$el.find("#maincontent").html(this.maincontent);
-            console.log("UI Rendered.");
+            this.$el.find("#nav").html(this.nav);
+            this.$el.find("#footer").html(this.footer);
+
+            var electionView = new ElectionView({model: this.election});
+            electionView.render();
+            console.log("appView.render done");
+
         },
         
         events: {
             'click #signin': 'signin',
             'click #signout': 'signout',
+            'click .vote': 'vote',
         },
         
         'signin': function() {
             this.params.voter.is_authenticated = true;
             this.nav = _.template(t_nav, this.params);
-            console.log("User signed in as " + this.params.voter.name);
             this.render();
+            console.log("User signed in as " + this.params.voter.name);
         },
         
         'signout': function() {
             this.params.voter.is_authenticated = false;
             this.nav = _.template(t_nav, this.params);
-            console.log("User signed out.");
             this.render();
+            console.log("User signed out.");
         },
+
+        'vote': function(ev) {
+            var candidateid = $(ev.target).data('candidateid');
+            //this.candidate.togglevote(voter)
+            //this.html = _.template( t_election, {election: this.election.toJSON()} );
+            this.render();
+            console.log("Vote update: Candidate ID " + candidateid);
+        },
+
+
 
     });
 	
