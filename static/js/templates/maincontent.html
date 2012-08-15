@@ -1,41 +1,16 @@
 <div class="box">
     <span id="geo-log"></span>
 
-    <% if (election) { %>
-        <h1><%= election.name %></h1>
-        <%= election.desc %><br/>
-
-        <% _.each (election.candidates, function(c) { %>
-            Name: <%= c.name %><br/>
-            ID: <%= c.id %><br/>
-            <br/>
-        <% }); %><br/>
-
-        This is the election view
-            
-
-    <% } else if (candidate) { %>
-        <h4 style="padding-top: 4px; padding-bottom: 2px;"><%= candidate.name %></h4>
-        candidate view - bla blerg derpity derp
-
-        This is the candidate view
-        
-        
-
-    <% } else { %>
-        
-        <div style="text-align: center">
-            <br/><br/>
-            <h1>OpenVote.US</h1>
-            <br/>
-            <h3>Give every candidate your up or down vote.</h3>
-            <h4>Better elections and a better country through better voting.</h4>
-            <br/><br/>
-        </div>
-        This is the default view<br/>
+    <div style="text-align: center">
+        <br/><br/>
+        <h1>OpenVote.US</h1>
         <br/>
-        bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla 
+        <h3>Give every candidate your up or down vote.</h3>
+        <h4>Better elections and a better country through better voting.</h4>
+        <br/><br/>
+    </div>
+    This is the default view<br/>
+    <br/>
+    bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla bla 
 
-    <% } %>
-    
 </div>

@@ -2,9 +2,9 @@ define( function(require) {
     var $ = require('jquery')
     , Backbone = require('backbone')
     , Voter = require('models/voter')
-    , Election = require('models/election')
+    , Candidate = require('models/candidate')
     , t_maincontent = require('text!templates/maincontent.html')
-    , t_election = require('text!templates/election.html')
+    , t_candidate = require('text!templates/candidate.html')
     
     var View = Backbone.View.extend({
 
@@ -13,16 +13,16 @@ define( function(require) {
 
         // View constructor
         initialize: function() {
-            console.log("    electionView.initialize");
+            console.log("    candidateView.initialize");
         },
 
         // Update the DOM
         render: function() {
-            console.log("    electionView.render started");
-            html = _.template( t_election, {election: this.model.toJSON()} );
+            console.log("    candidateView.render started");
+            html = _.template( t_candidate, {candidate: this.model.toJSON()} );
             this.$el.html(html);
             return this
-            console.log("    electionView.render done");
+            console.log("    candidateView.render done");
         },
         
     });

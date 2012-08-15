@@ -20,7 +20,6 @@ def home(request):
     if user.is_authenticated():
         social_user = UserSocialAuth.get_social_auth_for_user(user)[0]
         voter = _create_or_get_voter(social_user, lat, lon)
-    # backend = [pack[1] for pack in pkgutil.walk_packages([os.path.dirname(backends.__file__)])]
     return render_to_response('openvote/templates/base.html', locals())
 
 def logout(request):

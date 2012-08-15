@@ -8,46 +8,35 @@ define(['jquery','backbone','views/appView'], function($, Backbone, AppView){
             Backbone.history.start();
             // Backbone.EventBroker.on('lame', this.lame, this);
 
+            this.appView = new AppView();
+            this.appView.render();
         },
 
-        // All of your Backbone Routes (add more)
         routes: {
-
             // When there is no hash bang on the url, the home method is called
             '': 'home',
-            'candidate/:id': 'candidate',
+            'voter/:id': 'voter',
             'election/:id': 'election',
-
+            'candidate/:id': 'candidate',
         },
 
-//        'lame': function(data){
-//            console.log(data);
-//        },
-
         'home': function(){
+            console.log("Home");
+        },
 
-            // Instantiating mainView and anotherView instances
-            var appView = new AppView();
-
-            // Renders the mainView template
-            appView.render();
-
+        'voter': function(id){
+            console.log("Voter " + id);
+            this.appView.voterURL(id);
         },
 
         'candidate': function(id){
-            var appView = new AppView();
-            appView.render();
-            Backbone.EventBroker.trigger
-            console.log("Candidate selected: Candidate ID = " + id);
+            console.log("Candidate " + id);
+            this.appView.candidateURL(id);
         },
         
         'election': function(id) {
-            var appView = new AppView();
-            appView.render();
-//            this.election = 
-  //          var electionView = new ElectionView({model: this.election});
-    //        electionView.render();
-            console.log("Election selected: Election ID = " + id);
+            console.log("Election " + id);
+            this.appView.electionURL(id);
         },
         
         

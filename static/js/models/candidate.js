@@ -1,13 +1,13 @@
 define(['jquery', 'backbone'], function($, Backbone) {
 
-    var Election = Backbone.Model.extend({
+    var Candidate = Backbone.Model.extend({
             
-            urlRoot: '/api/v1/election/',
+            urlRoot: '/api/v1/candidate/',
             idAttribute: 'id',
 
     });
 
     // Returns the Model class
-    return Election;
+    return Candidate;
 
 });

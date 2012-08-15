@@ -10,7 +10,6 @@ body {
     line-height: 18px;
     color: #333333;
 }
-#map_canvas { height: 100%; width: 100%; }
 
 .back {
     position: fixed;
@@ -41,7 +40,18 @@ body {
 hr {
     margin: 8px 0;
 }
-
+.nav-election {
+    margin-bottom: 4px;
+}
+.nav-candidate {
+    margin-left: 8px;
+    font-size: 12px;
+    font-weight: bold;
+    text-wrap: none;
+}
+.nav-candidate > a {
+    color: inherit;
+}
 
 /* For Google Maps with HTML5 geolocation */
 

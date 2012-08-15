@@ -1,10 +1,12 @@
 <div class="box">
     
+    <a href="/">home</a><br/>
+    
     <button id="see-position" class="btn btn-info" style="float: right;">Search location</button>
     <% if (voter.is_authenticated) { %>
         <a id="signout" class="btn">Sign out</a>
         <hr/>
-        <h3><%= voter.name %></h3>
+        <a href="#/voter/<%= voterid %>"><h3><%= voter.name %></h3></a>
         <hr/>
         Voter ID: <%= voterid %>
         <hr/>
@@ -16,18 +18,16 @@
         <hr/>
     <% } %>
     
-    <div style="margin-left: 8px;">
     <% _.each (elections, function(e) { %>
-        <a href="#/election/<%= e.id %>"><h4><%= e.name %></h4></a>
-        <div style="margin-left: 8px;">
+        <a href="#/election/<%= e.id %>"><h4 class="nav-election"><%= e.name %></h4></a>
         <% _.each (e.candidates, function(c) { %>
-            <input class="vote" data-candidateid="<%= c.id %>" type="checkbox" <% if (c.approved) { %>CHECKED<% } %> >
-            <a href="#/candidate/<%= c.id %>"><h5><%= c.name %> (cid=<%= c.id %>)</h5></a>
+            <div class="nav-candidate">
+                <input class="vote" data-candidateid="<%= c.id %>" type="checkbox" <% if (c.approved) { %>CHECKED<% } %> >
+                <a href="#/candidate/<%= c.id %>"><%= c.name %> (cid=<%= c.id %>)</a>
+            </div>
         <% }); %>
-        </div>
         <br/>
     <% }); %>
-    </div>
     
     <hr/>
 
