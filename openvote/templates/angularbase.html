@@ -41,45 +41,31 @@
     <!-- Angular -->
     <script src="http://code.angularjs.org/angular-1.0.1.min.js"></script>
     <script src="http://code.angularjs.org/angular-resource-1.0.1.min.js"></script>
-    <script>
-        var app = angular.module('ovApp', []);
-            app.config(function($interpolateProvider) {
-                $interpolateProvider.startSymbol('<[');
-                $interpolateProvider.endSymbol(']>');
-            });
-    </script>
     <script src="{% static 'js/openvote_angular.js' %}"></script>
-    <script src="{% static 'js/openvote_django_api.js' %}"></script>
-
-
+    <!-- <script src="{% static 'js/openvote_django_api.js' %}"></script> -->
     
 </head>
 
-<body onload='locate()'>
-    
+<body onload='locate()'  ng-controller="AppCtrl">
+    <input type='hidden' id='voterid' value="{{ voter.id }}"/>
+
     {% include 'openvote/templates/signinmodal.html' %}
 
     <div class="back" id="geo-map"><div id="map_canvas"></div></div>
     <img src="{% static 'g/openvote_button.png' %}" style="float: left; position: fixed; z-index: 0; padding: 10px;"/>
    
-    <div class="container">
-    <div class="row">
-
-        <div class="span3">
-            {% include 'openvote/templates/nav.html' %}
-            {% include 'openvote/templates/footer.html' %}
+    <div class="container"">
+        <div class="row">
+            <div class="span3">
+                {% include 'openvote/templates/nav.html' %}
+                {% include 'openvote/templates/footer.html' %}
+            </div>
+            <div class="span9">
+                {% include 'openvote/templates/maincontent.html' %}
+            </div>
         </div>
-    
-        <div class="span9">
-            {% include 'openvote/templates/maincontent.html' %}
-        </div>
-
-    </div>
     </div>
     
-
-
-
 
 
 <!--

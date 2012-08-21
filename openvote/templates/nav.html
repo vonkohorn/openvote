@@ -2,20 +2,27 @@
     
     <a href="/">home</a><hr/>
 
-    <h3>Welcome <[voter.name]></h3>
-    <form ng-submit="authVoter()">
-        <input class="input-small" type="text" ng-model="voterName"  size="20" placeholder="Voter Name">
-        <input class="btn-primary" type="submit" value="Login">
-    </form>
-
+    <div ng-controller="VoterCtrl">
+        <h3>Welcome <[voter.name]></h3>
+        <form ng-submit="authVoter()">
+            <input class="input-small" type="text" ng-model="voterName"  size="20" placeholder="Voter Name">
+            <input class="btn-primary" type="submit" value="Login">
+        </form>
+    </div>
+        
     Voted in <[elections_voted()]>.  Not yet voted in <[elections_unvoted()]>.  <[elections.length]> Elections total.
 
     <hr/>
 
     <ul class="unstyled">
         <li ng-repeat="election in elections">
-        <h4 class="nav-election"><span class="done-<[election.voted]>"><[election.name]></span></h4>
+        <h4 class="nav-election"><a href="#/election/<[election.id]>"><[election.name]></a></h4>
         ( <input type="checkbox" ng-model="election.voted"> )
+            <li ng-repeat="candidate in election.candidates">
+            <div class="nav-candidate">
+                <input class="vote" data-candidateid="<%= candidate.id %>" type="checkbox" <% if (candidate.approved) { %>CHECKED<% } %> >
+                <a href="#/candidate/<%= c.id %>"><%= candidate.name %> (cid=<%= candidate.id %>)</a>
+            </div>
 
         </li>
     </ul>
@@ -51,16 +58,6 @@
     
     
 
-    <% _.each (elections, function(e) { %>
-        <a href="#/election/<%= e.id %>"><h4 class="nav-election"><%= e.name %></h4></a>
-        <% _.each (e.candidates, function(c) { %>
-            <div class="nav-candidate">
-                <input class="vote" data-candidateid="<%= c.id %>" type="checkbox" <% if (c.approved) { %>CHECKED<% } %> >
-                <a href="#/candidate/<%= c.id %>"><%= c.name %> (cid=<%= c.id %>)</a>
-            </div>
-        <% }); %>
-        <br/>
-    <% }); %>
     
     <hr/>
 
