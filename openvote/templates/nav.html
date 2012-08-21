@@ -1,0 +1,74 @@
+<div class="box">
+    
+    <a href="/">home</a><hr/>
+
+    <h3>Welcome <[voter.name]></h3>
+    <form ng-submit="authVoter()">
+        <input class="input-small" type="text" ng-model="voterName"  size="20" placeholder="Voter Name">
+        <input class="btn-primary" type="submit" value="Login">
+    </form>
+
+    Voted in <[elections_voted()]>.  Not yet voted in <[elections_unvoted()]>.  <[elections.length]> Elections total.
+
+    <hr/>
+
+    <ul class="unstyled">
+        <li ng-repeat="election in elections">
+        <h4 class="nav-election"><span class="done-<[election.voted]>"><[election.name]></span></h4>
+        ( <input type="checkbox" ng-model="election.voted"> )
+
+        </li>
+    </ul>
+
+    <hr/>
+
+    <form ng-submit="addElection()">
+        <input class="input-medium" type="text" ng-model="electionName"  size="30" placeholder="new election name">
+        <input class="btn-primary" type="submit" value="+ election">
+    </form>
+
+    <hr/>
+    
+    <button id="see-position" class="btn btn-info" style="float: right;">Search location</button>
+    <% if (voter.is_authenticated) { %>
+        <a id="signout" class="btn">Sign out</a>
+        <hr/>
+        <a href="#/voter/<%= voterid %>"><h3><%= voter.name %></h3></a>
+        <hr/>
+        Voter ID: <%= voterid %>
+        <hr/>
+     <% } else { %>
+        <a id="signin" data-toggle="modal" href="#signinModal" class="btn btn-primary">Sign in</a>
+        <!-- <a id="signin" class="btn btn-primary">Sign in</a> -->
+        <hr/>
+        <h3>Welcome Guest!</h3>
+        <hr/>
+    <% } %>
+    
+<hr/>
+    
+
+    
+    
+
+    <% _.each (elections, function(e) { %>
+        <a href="#/election/<%= e.id %>"><h4 class="nav-election"><%= e.name %></h4></a>
+        <% _.each (e.candidates, function(c) { %>
+            <div class="nav-candidate">
+                <input class="vote" data-candidateid="<%= c.id %>" type="checkbox" <% if (c.approved) { %>CHECKED<% } %> >
+                <a href="#/candidate/<%= c.id %>"><%= c.name %> (cid=<%= c.id %>)</a>
+            </div>
+        <% }); %>
+        <br/>
+    <% }); %>
+    
+    <hr/>
+
+    <h4><a href="/api/v1/election/?format=json">More Elections</a></h4>
+    <h4><a href="/api/v1/election/?format=json">Add New Election</a></h4>
+
+    <hr/>
+    
+    <a href="https://register.rockthevote.com/registrants/new" target="_new">Register to Vote</a>
+    
+</div>

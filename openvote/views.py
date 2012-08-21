@@ -20,7 +20,7 @@ def home(request):
     if user.is_authenticated():
         social_user = UserSocialAuth.get_social_auth_for_user(user)[0]
         voter = _create_or_get_voter(social_user, lat, lon)
-    return render_to_response('openvote/templates/base.html', locals())
+    return render_to_response('openvote/templates/angularbase.html', locals())
 
 def logout(request):
     auth_logout(request)

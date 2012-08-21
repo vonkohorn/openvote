@@ -1,0 +1,19 @@
+<input type="text" ng-model="search" class="search-query" placeholder="Search">
+<table>
+  <thead>
+  <tr>
+    <th>Election</th>
+    <th>Description</th>
+    <th><a href="#/election/new"><i class="icon-plus-sign"></i></a></th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr ng-repeat="election in elections | filter:search | orderBy:'name'">
+    <td><a href="<[election.site]>" target="_blank"><[election.name]></a></td>
+    <td><[election.desc]></td>
+    <td>
+      <a href="#/election/edit/<[election._id.$oid]>"><i class="icon-pencil"></i></a>
+    </td>
+  </tr>
+  </tbody>
+</table>
