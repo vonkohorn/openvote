@@ -55,6 +55,14 @@ hr {
 .nav-candidate {
     margin-left: 8px;
 }
+dh {
+    font-weight: bold;
+    margin-bottom: 8px;
+}
+dd {
+    margin-bottom: 8px;
+    margin-left: 8px;
+}
 
 /* For Google Maps with HTML5 geolocation */
 
