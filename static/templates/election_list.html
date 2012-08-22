@@ -10,9 +10,9 @@
       </thead>
       <tbody>
       <tr ng-repeat="election in elections | filter:search | orderBy:'name'">
-        <td><a href="#/election/<[election.id]>"><[election.name]></a></td>
+        <td><a href="#/election/<[election.id]>" ng-click="updateElection(election)"><[election.name]></a></td>
         <td><[election.desc]></td>
-        <td><a href="#/election/edit/<[election.id]>"><i class="icon-pencil"></i></a></td>
+        <td><a href="#/election/edit/<[election.id]>" ng-click="updateElection(election)"><i class="icon-pencil"></i></a></td>
       </tr>
       </tbody>
     </table>

@@ -8,7 +8,7 @@ angular.module('ovApp', []).
             .when('/', {controller:ElectionListCtrl, templateUrl:'static/templates/election_list.html'})
             .when('/election/new', {controller:AddElectionCtrl, templateUrl:'static/templates/election_edit.html'})
             .when('/election/edit/:electionID', {controller:EditElectionCtrl, templateUrl:'static/templates/election_edit.html'})
-            .when('/election/:electionId', {controller:ElectionCtrl, templateUrl:'static/templates/election.html'})
+            .when('/election/:electionID', {controller:ElectionCtrl, templateUrl:'static/templates/election.html'})
             .when('/candidate/:candidateID', {controller:CandidateCtrl, templateUrl:'static/templates/candidate.html'})
             .otherwise({redirectTo:'/'});
   });
@@ -21,6 +21,8 @@ function AppCtrl($scope) {
         {
             name:'US Presidential Election 2012',
             voted:false,
+            site:'http://www.whitehouse.gov',
+            desc:'This is a presidential election.',
             candidates : [
                 {
                     name: 'Pres Cand 1',
@@ -49,6 +51,8 @@ function AppCtrl($scope) {
         {
             name:'Some Congressional Election',
             voted:false,
+            site:'http://www.congressional.gov',
+            desc:'This is a congressional election.',
             candidates : [
                 {
                     name: 'Cong Cand 1',
@@ -77,6 +81,8 @@ function AppCtrl($scope) {
         {
             name:'Another Congressional Election',
             voted:false,
+            site:'http://www.anothercongy.gov',
+            desc:'This is a another congy election.',
             candidates : [
                 {
                     name: 'AnCong Cand 1',
@@ -110,35 +116,63 @@ function AppCtrl($scope) {
     $scope.elections_unvoted = function () {
         return 0;
     };
+
+    $scope.updateCandidate = function(candidate) {
+        $scope.current_candidate = candidate;
+    };
+
+    $scope.updateElection = function(election) {
+        $scope.current_election = election;
+    };
 }
 
 function ElectionListCtrl($scope) {
-    $scope.something = '1';
 }
 
 function AddElectionCtrl($scope) {
-    $scope.something = '2';
 }
 
 function EditElectionCtrl($scope, $location, $routeParams) {
-    $scope.election = {name:'todo - get election by ID', voted:false, id:$routeParams.electionId};
+    if (!$scope.current_election) {
+        $scope.current_election = _.filter(
+            _.map($scope.elections, 
+                function (election) {
+                    if (election.id == $routeParams.electionId) { return election; }
+                }),
+            function (election) {
+                if (election) { return election; }
+            }
+        )[0];
+    }
 }
 
 function ElectionCtrl($scope, $location, $routeParams) {
-    $scope.election = {name:'todo - get election by ID', voted:false, id:$routeParams.electionId};
+    if (!$scope.current_election) {
+        $scope.current_election = _.filter(
+            _.map($scope.elections, 
+                function (election) {
+                    if (election.id == $routeParams.electionId) { return election; }
+                }),
+            function (election) {
+                if (election) { return election; }
+            }
+        )[0];
+    }
 }
 
 function CandidateCtrl($scope, $location, $routeParams) {
-    $scope.candidate = _.filter(
-        _.map($scope.elections,
-              function (election) {
-                  var candidate  = _.find(election.candidates, function (candidate) { return candidate.id == $routeParams.candidateID; });
-                  if (candidate) { return candidate; }
-              }),
-        function (candidate) { 
-            if (candidate) { return candidate; }
-        }
-    )[0];
+    if (!$scope.current_candidate) {
+        $scope.current_candidate = _.filter(
+            _.map($scope.elections,
+                function (election) {
+                    var current_candidate  = _.find(election.candidates, function (candidate) { return candidate.id == $routeParams.candidateID; });
+                    if (candidate) { return candidate; }
+                }),
+            function (candidate) { 
+                if (candidate) { return candidate; }
+            }
+        )[0];
+    }
 }
 
 function VoterCtrl($scope) {

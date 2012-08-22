@@ -16,11 +16,11 @@
 
     <ul class="unstyled">
         <li ng-repeat="election in elections">
-            <h4 class="nav-election"><a href="#/election/<[election.id]>"><[election.name]></a></h4>
+            <h4 class="nav-election"><a href="#/election/<[election.id]>" ng-click="updateElection(election)"><[election.name]></a></h4>
             <div ng-repeat="candidate in election.candidates">
                 <div class="nav-candidate">
                     <input class="vote" type="checkbox" ng-model="candidate.approved">
-                    <span><a href="#/candidate/<[ candidate.id ]>"><[ candidate.name ]></a></span>
+                    <span><a href="#/candidate/<[ candidate.id ]>" ng-click="updateCandidate(candidate)"><[ candidate.name ]></a></span>
                 </div>
             </div>
         </li>
@@ -29,7 +29,7 @@
     <hr/>
 
     <h4><a href="/api/v1/election/?format=json">More Elections</a></h4>
-    <h4><a href="/api/v1/election/?format=json">Add New Election</a></h4>
+    <h4><a href="#/election/new" ng-click="updateElection('')">Add New Election</a></h4>
 
     <hr/>
     

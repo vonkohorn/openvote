@@ -26,10 +26,8 @@
 	<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCy9qqGNDbHN_gtdFvQ6W25ydBD3D6scqk&sensor=false"></script>
     <script type="text/javascript">
         function locate() {
-            var lat = "{{ lat|escapejs }}";
-            var lon = "{{ lon|escapejs }}";
             var mapOptions = {
-                center: new google.maps.LatLng(lat, lon),
+                center: new google.maps.LatLng(0, 0),
                 zoom: 5, zoomControl: false, panControl: false, scaleControl: false, scrollwheel: false,
                 disableDefaultUI: true,
                 mapTypeId: google.maps.MapTypeId.HYBRID
@@ -39,9 +37,9 @@
     </script>
 
     <!-- Angular -->
-    <script src="http://code.angularjs.org/angular-1.0.1.min.js"></script>
-    <script src="http://code.angularjs.org/angular-resource-1.0.1.min.js"></script>
-    <script src="http://documentcloud.github.com/underscore/underscore-min.js"></script>
+    <script src="http://code.angularjs.org/angular-1.0.1.js"></script>
+    <script src="http://code.angularjs.org/angular-resource-1.0.1.js"></script>
+    <script src="http://documentcloud.github.com/underscore/underscore.js"></script>
     <script src="{% static 'js/openvote_angular.js' %}"></script>
     <!-- <script src="{% static 'js/openvote_django_api.js' %}"></script> -->
     
