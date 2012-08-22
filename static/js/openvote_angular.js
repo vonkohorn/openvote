@@ -7,6 +7,10 @@ angular.module('ovApp', []).
         $routeProvider
             .when('/', {templateUrl:'static/templates/welcome.html'})
             .when('/about', {templateUrl:'static/templates/about.html'})
+            .when('/help', {templateUrl:'static/templates/help.html'})
+            .when('/terms', {templateUrl:'static/templates/terms.html'})
+            .when('/privacy', {templateUrl:'static/templates/privacy.html'})
+            .when('/code', {templateUrl:'static/templates/code.html'})
             .when('/election/list', {controller:ElectionListCtrl, templateUrl:'static/templates/election_list.html'})
             .when('/election/new', {controller:AddElectionCtrl, templateUrl:'static/templates/election_edit.html'})
             .when('/election/edit/:electionID', {controller:EditElectionCtrl, templateUrl:'static/templates/election_edit.html'})

@@ -37,27 +37,23 @@ body {
 }
 hr {
     margin: 8px 0;
+    border-top: 1px solid #ccc;
+    border-bottom: 1px solid #ffffff;
+}
+.nav, .nav-election, .nav-candidate {
+    color: #333344;
+}
+.nav > a, .nav-election > a, .nav-candidate > a {
+    color: inherit;
 }
 .nav-election {
     margin-top: 8px;
-    margin-bottom: 4px;
+    margin-bottom: 8px;
     font-size: 14px;
     font-weight: bold;
-    text-wrap: none;
-    color: #333344;
-}
-.nav-election > a {
-    color: inherit;
 }
 .nav-candidate {
     margin-left: 8px;
-    font-size: 12px;
-    font-weight: bold;
-    text-wrap: none;
-    color: #333344;
-}
-.nav-candidate > a {
-    color: inherit;
 }
 
 /* For Google Maps with HTML5 geolocation */

@@ -46,7 +46,7 @@ def privacy(request):
     return render_to_response('openvote/templates/privacy.html', locals())
 def code(request):
     return render_to_response('openvote/templates/code.html', locals())
-    
+
 
 # Internal
 def _get_client_ip(request):
@@ -61,8 +61,8 @@ def _get_client_location(ip):
     u = urllib2.urlopen('http://freegeoip.net/json/{0}'.format(ip))
     decoded = json.load(u)
     u.close()
-    lat = 37.4419 if not decoded['latitude'] else decoded['latitude']
-    lon = -94.1419 if not decoded['longitude'] else decoded['longitude']
+    lat = 37.4419 if decoded['latitude'] == "0" else decoded['latitude']
+    lon = -94.1419 if decoded['longitude'] == "0" else decoded['longitude']
     return lat, lon
 
 def _create_or_get_voter(user, lat, lon):

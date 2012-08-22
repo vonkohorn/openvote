@@ -3,27 +3,25 @@
 
 <div class="box">
     
-    <a href="/">home</a> / 
-    <a href="/maptest">maptest</a> / 
-    <a href="#/election/list">election list</a>
-    <hr/>
-
     <div ng-controller="VoterCtrl">
         {% if user.is_authenticated %}
-            <h3>Welcome, {{ user.username }}</h3>
-            <a href="{% url "logout" %}" class="btn">Sign out</a>
+            <a href="{% url "logout" %}" class="btn" style="float: right;">Sign out</a>
+            <button id="see-position" class="btn btn-info">Search location</button>
+            <h3 style="margin-top: 8px;">Welcome, {{ user.username }}</h3>
         {% else %}
-            <a data-toggle="modal" href="#signinModal" class="btn btn-primary">Sign in</a>
+            <a data-toggle="modal" href="#signinModal" class="btn btn-primary" style="float: right;"><i class="icon-user icon-white"></i> Sign in</a>
+            <h3>Welcome. </h3>
         {% endif %}
     </div>
-        
-    Voted in <[elections_voted()]>.  Not yet voted in <[elections_unvoted()]>.  <[elections.length]> Elections total.
 
     <hr/>
 
+    <div class="nav" style="float: right; padding-top: 6px;"><a href="#/election/new" ng-click="updateElection('')"><i class="icon-plus-sign"></i> New</a></div>
+    <h3 class="nav"><a href="#/election/list">Elections</a></h3>
+
     <ul class="unstyled">
-        <li class="nav-election" ng-repeat="election in elections">
-            <a href="#/election/<[election.id]>" ng-click="updateElection(election)"><[election.name]></a>
+        <li ng-repeat="election in elections">
+            <a class="nav-election" href="#/election/<[election.id]>" ng-click="updateElection(election)"><[election.name]></a>
             <div ng-repeat="candidate in election.candidates">
                 <div class="nav-candidate">
                     <input class="vote" type="checkbox" ng-model="candidate.approved">
@@ -33,15 +31,9 @@
         </li>
     </ul>
 
-    <hr/>
-
     <div class="nav-election">
-        <a href="/api/v1/election/?format=json">More Elections</a><br/>
-        <a href="#/election/new" ng-click="updateElection('')">Add New Election</a>
+        <hr/>
+        <a href="https://register.rockthevote.com/registrants/new" target="_new"><i class="icon-ok"></i> Register to Vote</a>
     </div>
 
-    <hr/>
-    
-    <a href="https://register.rockthevote.com/registrants/new" target="_new">Register to Vote</a>
-    
 </div>

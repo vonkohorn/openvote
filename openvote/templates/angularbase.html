@@ -58,7 +58,8 @@
     {% include 'openvote/templates/signinmodal.html' %}
 
     <div class="back" id="geo-map"><div id="map_canvas"></div></div>
-    <img src="{% static 'g/ovlogo100.png' %}" style="float: left; position: fixed; z-index: 0; padding: 5px;"/>
+    <a href="/">
+    <img src="{% static 'g/ovlogo100.png' %}" style="float: left; position: fixed; z-index: 0; padding: 5px; border: none;"/></a>
    
     <div class="container">
         <div class="row">
@@ -74,7 +75,6 @@
         </div>
     </div>
     
-
     <script defer>
         (function() {
           var map = null;
@@ -115,7 +115,7 @@
             }
           }
           
-          //document.querySelector('#see-position').addEventListener('click', successPositionHandler, false);
+          document.querySelector('#see-position').addEventListener('click', successPositionHandler, false);
           geoMap.addEventListener('click', successPositionHandler, false);
         })();
     </script>
