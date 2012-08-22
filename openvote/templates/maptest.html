@@ -1,0 +1,49 @@
+{% load staticfiles %}
+{% load url from future %}
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <link href="{% static 'bootstrap/css/bootstrap.min.css' %}" rel="stylesheet" type="text/css" />
+	<link href="{% static 'css/openvote.css' %}" rel="stylesheet" type="text/css" />
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+    <style type="text/css">
+      html { height: 100% }
+      body { height: 100%; margin: 0; padding: 0 }
+      #map_canvas { height: 100% }
+    </style>
+    <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCy9qqGNDbHN_gtdFvQ6W25ydBD3D6scqk&sensor=false"></script>
+    <script type="text/javascript">
+      function initialize() {
+        var mapOptions = {
+          center: new google.maps.LatLng(-34.397, 150.644),
+          zoom: 8,
+          mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+        var map = new google.maps.Map(document.getElementById("map_canvas"),
+            mapOptions);
+      }
+    </script>
+  </head>
+  <body onload="initialize()">
+
+   <div class="back" id="geo-map"><div id="map_canvas"></div></div>
+    <img src="{% static 'g/openvote_button.png' %}" style="float: left; position: fixed; z-index: 0; padding: 10px;"/>
+   
+    <div class="container">
+        <div class="row">
+            <div class="span3">
+                <div class="box">
+                    Wassup
+                </div>
+            </div>
+            <div class="span9">
+                <div class="box">
+                    Big Box
+                </div>
+            </div>
+        </div>
+    </div>
+    
+  </body>
+</html>

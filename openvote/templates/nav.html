@@ -1,13 +1,20 @@
+{% load staticfiles %}
+{% load url from future %}
+
 <div class="box">
     
-    <a href="/">home</a><hr/>
+    <a href="/">home</a> / 
+    <a href="/maptest">maptest</a> / 
+    <a href="#/election/list">election list</a>
+    <hr/>
 
     <div ng-controller="VoterCtrl">
-        <h3>Welcome <[voter.name]></h3>
-        <form ng-submit="authVoter()">
-            <input class="input-small" type="text" ng-model="voterName"  size="20" placeholder="Voter Name">
-            <input class="btn-primary" type="submit" value="Login">
-        </form>
+        {% if user.is_authenticated %}
+            <h3>Welcome, {{ user.username }}</h3>
+            <a href="{% url "logout" %}" class="btn">Sign out</a>
+        {% else %}
+            <a data-toggle="modal" href="#signinModal" class="btn btn-primary">Sign in</a>
+        {% endif %}
     </div>
         
     Voted in <[elections_voted()]>.  Not yet voted in <[elections_unvoted()]>.  <[elections.length]> Elections total.
@@ -15,12 +22,12 @@
     <hr/>
 
     <ul class="unstyled">
-        <li ng-repeat="election in elections">
-            <h4 class="nav-election"><a href="#/election/<[election.id]>" ng-click="updateElection(election)"><[election.name]></a></h4>
+        <li class="nav-election" ng-repeat="election in elections">
+            <a href="#/election/<[election.id]>" ng-click="updateElection(election)"><[election.name]></a>
             <div ng-repeat="candidate in election.candidates">
                 <div class="nav-candidate">
                     <input class="vote" type="checkbox" ng-model="candidate.approved">
-                    <span><a href="#/candidate/<[ candidate.id ]>" ng-click="updateCandidate(candidate)"><[ candidate.name ]></a></span>
+                    <a href="#/candidate/<[ candidate.id ]>" ng-click="updateCandidate(candidate)"><[ candidate.name ]></a>
                 </div>
             </div>
         </li>
@@ -28,8 +35,10 @@
 
     <hr/>
 
-    <h4><a href="/api/v1/election/?format=json">More Elections</a></h4>
-    <h4><a href="#/election/new" ng-click="updateElection('')">Add New Election</a></h4>
+    <div class="nav-election">
+        <a href="/api/v1/election/?format=json">More Elections</a><br/>
+        <a href="#/election/new" ng-click="updateElection('')">Add New Election</a>
+    </div>
 
     <hr/>
     

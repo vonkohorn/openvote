@@ -16,14 +16,14 @@ body {
     z-index: -1;
 }
 .container {
-    position: relative;
-    z-index: 1;
     padding-left: 20px;
     padding-right: 20px;
     padding-top: 65px;
     padding-bottom: 80px;
 }
 .box{
+    position: relative;
+    z-index: 1;
 	background-color: #fff;
 	padding:12px;
     margin-bottom: 12px;
@@ -39,13 +39,22 @@ hr {
     margin: 8px 0;
 }
 .nav-election {
+    margin-top: 8px;
     margin-bottom: 4px;
+    font-size: 14px;
+    font-weight: bold;
+    text-wrap: none;
+    color: #333344;
+}
+.nav-election > a {
+    color: inherit;
 }
 .nav-candidate {
     margin-left: 8px;
     font-size: 12px;
     font-weight: bold;
     text-wrap: none;
+    color: #333344;
 }
 .nav-candidate > a {
     color: inherit;
@@ -60,6 +69,10 @@ hr {
 #geo-log {
     color: blue;
     padding: 5px;
+}
+
+#map_canvas {
+    height: 100%
 }
 
 

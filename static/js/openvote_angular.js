@@ -5,7 +5,9 @@ angular.module('ovApp', []).
     })
     .config(function($routeProvider) {
         $routeProvider
-            .when('/', {controller:ElectionListCtrl, templateUrl:'static/templates/election_list.html'})
+            .when('/', {templateUrl:'static/templates/welcome.html'})
+            .when('/about', {templateUrl:'static/templates/about.html'})
+            .when('/election/list', {controller:ElectionListCtrl, templateUrl:'static/templates/election_list.html'})
             .when('/election/new', {controller:AddElectionCtrl, templateUrl:'static/templates/election_edit.html'})
             .when('/election/edit/:electionID', {controller:EditElectionCtrl, templateUrl:'static/templates/election_edit.html'})
             .when('/election/:electionID', {controller:ElectionCtrl, templateUrl:'static/templates/election.html'})
@@ -28,7 +30,7 @@ function AppCtrl($scope) {
                     name: 'Pres Cand 1',
                     desc: 'This is why I should be Prezzy',
                     htmlslug: 'This should be put in an iframe?',
-                    approved: true,
+                    approved: false,
                     id: 10
                 },
                 {
@@ -176,9 +178,11 @@ function CandidateCtrl($scope, $location, $routeParams) {
 }
 
 function VoterCtrl($scope) {
-    $scope.voter = {name:'Guest', is_authenticated:false};
-
     $scope.authVoter = function() {
-        $scope.voter = {name:$scope.voterName, is_authenticated:true};
+        if ($("#voterid").val() == "0") {
+            $scope.voter = {name:'Guest', is_authenticated:false};
+        } else {
+            $scope.voter = {name:"Authenticated", is_authenticated:true};
+        }
     };
 }

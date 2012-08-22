@@ -26,9 +26,16 @@
 	<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCy9qqGNDbHN_gtdFvQ6W25ydBD3D6scqk&sensor=false"></script>
     <script type="text/javascript">
         function locate() {
+            var lat = "{{ lat|escapejs }}";
+            var lon = "{{ lon|escapejs }}";
+            if (lat == 37.4419) {
+                var theZoom = 5;
+            } else {
+                var theZoom = 8;
+            }
             var mapOptions = {
-                center: new google.maps.LatLng(0, 0),
-                zoom: 5, zoomControl: false, panControl: false, scaleControl: false, scrollwheel: false,
+                center: new google.maps.LatLng(lat, lon),
+                zoom: theZoom, zoomControl: false, panControl: false, scaleControl: false, scrollwheel: false,
                 disableDefaultUI: true,
                 mapTypeId: google.maps.MapTypeId.HYBRID
             };
@@ -51,7 +58,7 @@
     {% include 'openvote/templates/signinmodal.html' %}
 
     <div class="back" id="geo-map"><div id="map_canvas"></div></div>
-    <img src="{% static 'g/openvote_button.png' %}" style="float: left; position: fixed; z-index: 0; padding: 10px;"/>
+    <img src="{% static 'g/ovlogo100.png' %}" style="float: left; position: fixed; z-index: 0; padding: 5px;"/>
    
     <div class="container">
         <div class="row">
@@ -60,14 +67,13 @@
                 {% include 'openvote/templates/footer.html' %}
             </div>
             <div class="span9">
-                {% include 'openvote/templates/maincontent.html' %}
+                <div class="box">
+                    <div ng-view></div>    
+                </div>
             </div>
         </div>
     </div>
     
-
-
-<!--
 
     <script defer>
         (function() {
@@ -113,9 +119,6 @@
           geoMap.addEventListener('click', successPositionHandler, false);
         })();
     </script>
-
--->
-
 
 
 

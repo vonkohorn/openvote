@@ -22,6 +22,16 @@ def home(request):
         voter = _create_or_get_voter(social_user, lat, lon)
     return render_to_response('openvote/templates/angularbase.html', locals())
 
+def maptest(request):
+    client_ip = _get_client_ip(request)
+    lat, lon = _get_client_location(client_ip)
+    user = request.user
+    voter = None
+    if user.is_authenticated():
+        social_user = UserSocialAuth.get_social_auth_for_user(user)[0]
+        voter = _create_or_get_voter(social_user, lat, lon)
+    return render_to_response('openvote/templates/maptest.html', locals())
+
 def logout(request):
     auth_logout(request)
     return redirect("home")
