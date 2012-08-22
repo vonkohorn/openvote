@@ -61,8 +61,8 @@ def _get_client_location(ip):
     u = urllib2.urlopen('http://freegeoip.net/json/{0}'.format(ip))
     decoded = json.load(u)
     u.close()
-    lat = 37.4419 if decoded['latitude'] else decoded['latitude']
-    lon = -94.1419 if decoded['latitude'] else decoded['latitude']
+    lat = 37.4419 if not decoded['latitude'] else decoded['latitude']
+    lon = -94.1419 if not decoded['longitude'] else decoded['longitude']
     return lat, lon
 
 def _create_or_get_voter(user, lat, lon):
