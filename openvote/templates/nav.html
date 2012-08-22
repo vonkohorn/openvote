@@ -16,49 +16,16 @@
 
     <ul class="unstyled">
         <li ng-repeat="election in elections">
-        <h4 class="nav-election"><a href="#/election/<[election.id]>"><[election.name]></a></h4>
-        ( <input type="checkbox" ng-model="election.voted"> )
-            <li ng-repeat="candidate in election.candidates">
-            <div class="nav-candidate">
-                <input class="vote" data-candidateid="<%= candidate.id %>" type="checkbox" <% if (candidate.approved) { %>CHECKED<% } %> >
-                <a href="#/candidate/<%= c.id %>"><%= candidate.name %> (cid=<%= candidate.id %>)</a>
+            <h4 class="nav-election"><a href="#/election/<[election.id]>"><[election.name]></a></h4>
+            <div ng-repeat="candidate in election.candidates">
+                <div class="nav-candidate">
+                    <input class="vote" type="checkbox" ng-model="candidate.approved">
+                    <span><a href="#/candidate/<[ candidate.id ]>"><[ candidate.name ]></a></span>
+                </div>
             </div>
-
         </li>
     </ul>
 
-    <hr/>
-
-    <form ng-submit="addElection()">
-        <input class="input-medium" type="text" ng-model="electionName"  size="30" placeholder="new election name">
-        <input class="btn-primary" type="submit" value="+ election">
-    </form>
-
-    <hr/>
-    
-    <button id="see-position" class="btn btn-info" style="float: right;">Search location</button>
-    <% if (voter.is_authenticated) { %>
-        <a id="signout" class="btn">Sign out</a>
-        <hr/>
-        <a href="#/voter/<%= voterid %>"><h3><%= voter.name %></h3></a>
-        <hr/>
-        Voter ID: <%= voterid %>
-        <hr/>
-     <% } else { %>
-        <a id="signin" data-toggle="modal" href="#signinModal" class="btn btn-primary">Sign in</a>
-        <!-- <a id="signin" class="btn btn-primary">Sign in</a> -->
-        <hr/>
-        <h3>Welcome Guest!</h3>
-        <hr/>
-    <% } %>
-    
-<hr/>
-    
-
-    
-    
-
-    
     <hr/>
 
     <h4><a href="/api/v1/election/?format=json">More Elections</a></h4>
