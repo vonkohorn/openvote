@@ -16,16 +16,16 @@
 
     <hr/>
 
-    <div class="nav" style="float: right; padding-top: 6px;"><a href="#/election/new" ng-click="updateElection('')"><i class="icon-plus-sign"></i> New</a></div>
-    <h3 class="nav"><a href="#/election/list">Elections</a></h3>
+    <div class="nav" style="float: right; padding-top: 6px;"><a href="/election/new" ng-click="updateElection('')"><i class="icon-plus-sign"></i> New</a></div>
+    <h3 class="nav"><a href="/election/list">Elections</a></h3>
 
     <ul class="unstyled">
         <li ng-repeat="election in elections">
-            <a class="nav-election" href="#/election/<[election.id]>" ng-click="updateElection(election)"><[election.name]></a>
+            <a class="nav-election" href="/election/<[election.id]>" ng-click="updateElection(election)"><[election.name]></a>
             <div ng-repeat="candidate in election.candidates">
                 <div class="nav-candidate">
                     <input class="vote" type="checkbox" ng-model="candidate.approved">
-                    <a href="#/candidate/<[ candidate.id ]>" ng-click="updateCandidate(candidate)"><[ candidate.name ]></a>
+                    <a href="/candidate/<[ candidate.id ]>" ng-click="updateCandidate(candidate)"><[ candidate.name ]></a>
                 </div>
             </div>
         </li>
