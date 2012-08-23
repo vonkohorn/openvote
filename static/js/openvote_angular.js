@@ -23,7 +23,6 @@ angular.module('ovApp', []).
 function AppCtrl($scope) {
     $scope.voter = {name:'Guest', is_authenticated:false};
 
-    // $scope.elections = Election.query();
     $scope.elections = [
         {
             name:'US Presidential Election 2012',
@@ -129,6 +128,7 @@ function AppCtrl($scope) {
     };
 
     $scope.updateElection = function(election) {
+        console.log("WE!!FWEF");
         $scope.current_election = election;
     };
 }
@@ -140,11 +140,11 @@ function AddElectionCtrl($scope) {
 }
 
 function EditElectionCtrl($scope, $location, $routeParams) {
-    if (!$scope.current_election) {
+    if ($scope.current_election.id !== $routeParams.electionID) {
         $scope.current_election = _.filter(
             _.map($scope.elections, 
                 function (election) {
-                    if (election.id == $routeParams.electionId) { return election; }
+                    if (election.id == $routeParams.electionID) { return election; }
                 }),
             function (election) {
                 if (election) { return election; }
@@ -154,11 +154,11 @@ function EditElectionCtrl($scope, $location, $routeParams) {
 }
 
 function ElectionCtrl($scope, $location, $routeParams) {
-    if (!$scope.current_election) {
+    if ($scope.current_election.id !== $routeParams.electionID) {
         $scope.current_election = _.filter(
             _.map($scope.elections, 
                 function (election) {
-                    if (election.id == $routeParams.electionId) { return election; }
+                    if (election.id == $routeParams.electionID) { return election; }
                 }),
             function (election) {
                 if (election) { return election; }
@@ -168,12 +168,12 @@ function ElectionCtrl($scope, $location, $routeParams) {
 }
 
 function CandidateCtrl($scope, $location, $routeParams) {
-    if (!$scope.current_candidate) {
+    if ($scope.current_candidate.id !== $routeParams.candidateID) {
         $scope.current_candidate = _.filter(
             _.map($scope.elections,
                 function (election) {
                     var current_candidate  = _.find(election.candidates, function (candidate) { return candidate.id == $routeParams.candidateID; });
-                    if (candidate) { return candidate; }
+                    if (current_candidate) { return current_candidate; }
                 }),
             function (candidate) { 
                 if (candidate) { return candidate; }
