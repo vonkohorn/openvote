@@ -3,21 +3,22 @@ angular.module('ovApp', []).
         $interpolateProvider.startSymbol('<[');
         $interpolateProvider.endSymbol(']>');
     })
-    .config(function($routeProvider) {
+    .config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider) {
+        $locationProvider.html5Mode(true);
         $routeProvider
-            .when('/', {templateUrl:'static/templates/welcome.html'})
-            .when('/about', {templateUrl:'static/templates/about.html'})
-            .when('/help', {templateUrl:'static/templates/help.html'})
-            .when('/terms', {templateUrl:'static/templates/terms.html'})
-            .when('/privacy', {templateUrl:'static/templates/privacy.html'})
-            .when('/code', {templateUrl:'static/templates/code.html'})
-            .when('/election/list', {controller:ElectionListCtrl, templateUrl:'static/templates/election_list.html'})
-            .when('/election/new', {controller:AddElectionCtrl, templateUrl:'static/templates/election_edit.html'})
-            .when('/election/edit/:electionID', {controller:EditElectionCtrl, templateUrl:'static/templates/election_edit.html'})
-            .when('/election/:electionID', {controller:ElectionCtrl, templateUrl:'static/templates/election.html'})
-            .when('/candidate/:candidateID', {controller:CandidateCtrl, templateUrl:'static/templates/candidate.html'})
-            .otherwise({redirectTo:'/'});
-  });
+            .when('/', {templateUrl:'/static/templates/welcome.html'})
+            .when('/about', {templateUrl:'/static/templates/about.html'})
+            .when('/help', {templateUrl:'/static/templates/help.html'})
+            .when('/terms', {templateUrl:'/static/templates/terms.html'})
+            .when('/privacy', {templateUrl:'/static/templates/privacy.html'})
+            .when('/code', {templateUrl:'/static/templates/code.html'})
+            .when('/election/list', {controller:ElectionListCtrl, templateUrl:'/static/templates/election_list.html'})
+            .when('/election/new', {controller:AddElectionCtrl, templateUrl:'/static/templates/election_edit.html'})
+            .when('/election/edit/:electionID', {controller:EditElectionCtrl, templateUrl:'/static/templates/election_edit.html'})
+            .when('/election/:electionID', {controller:ElectionCtrl, templateUrl:'/static/templates/election.html'})
+            .when('/candidate/:candidateID', {controller:CandidateCtrl, templateUrl:'/static/templates/candidate.html'})
+            .otherwise({});
+  }]);
 
 function AppCtrl($scope) {
     $scope.voter = {name:'Guest', is_authenticated:false};
