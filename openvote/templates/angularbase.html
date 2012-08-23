@@ -7,14 +7,22 @@
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=Edge;chrome=1" />
-	<title>OpenVote.US</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OpenVote.US</title>
 
 	<link rel="shortcut icon" href="{% static 'g/favicon.ico' %}" />
-    <meta name="viewport" content="width=device-width">
+
+    <!-- Angular -->
+    <script src="http://code.angularjs.org/angular-1.0.1.js"></script>
+    <script src="http://code.angularjs.org/angular-resource-1.0.1.js"></script>
+    <script src="http://documentcloud.github.com/underscore/underscore.js"></script>
+    <script src="{% static 'js/openvote_angular.js' %}"></script>
+    <!-- <script src="{% static 'js/openvote_django_api.js' %}"></script> -->
+
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-	<link href="{% static 'bootstrap/css/bootstrap.min.css' %}" rel="stylesheet" type="text/css" />
-    <link href="assets/css/bootstrap-responsive.css" rel="stylesheet">
 	<script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
+	<link href="{% static 'bootstrap/css/bootstrap.min.css' %}" rel="stylesheet" type="text/css" />
+	<link href="{% static 'bootstrap/css/bootstrap-responsive.css' %}" />
 	<link href="{% static 'css/openvote.css' %}" rel="stylesheet" type="text/css" />
 
     <!-- HTML5 shim for IE6-8 -->
@@ -23,7 +31,6 @@
     <![endif]-->
 
 	<!-- Google Maps --> 
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCy9qqGNDbHN_gtdFvQ6W25ydBD3D6scqk&sensor=false"></script>
     <script type="text/javascript">
         function locate() {
@@ -43,26 +50,23 @@
             var map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
         }
     </script>
-
-    <!-- Angular -->
-    <script src="http://code.angularjs.org/angular-1.0.1.js"></script>
-    <script src="http://code.angularjs.org/angular-resource-1.0.1.js"></script>
-    <script src="http://documentcloud.github.com/underscore/underscore.js"></script>
-    <script src="{% static 'js/openvote_angular.js' %}"></script>
-    <!-- <script src="{% static 'js/openvote_django_api.js' %}"></script> -->
     
 </head>
 
 <body onload='locate()'  ng-controller="AppCtrl">
-    <input type='hidden' id='voterid' value="{{ voter.id }}"/>
 
-    {% include 'openvote/templates/signinmodal.html' %}
+    <div class="background" id="geo-map">
+        <div id="map_canvas"></div>
+    </div>
+    
+    <div class="logo">
+        <a href="/"><img src="{% static 'g/ovlogo100.png' %}"/></a>
+    </div>
 
-    <div class="back" id="geo-map"><div id="map_canvas"></div></div>
-    <a href="/">
-    <img src="{% static 'g/ovlogo100.png' %}" style="float: left; position: fixed; z-index: 0; padding: 5px; border: none;"/></a>
-   
     <div class="container">
+        <input type='hidden' id='voterid' value="{{ voter.id }}"/>
+        {% include 'openvote/templates/signinmodal.html' %}
+
         <div class="row">
             <div class="span3">
                 {% include 'openvote/templates/nav.html' %}
