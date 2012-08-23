@@ -13,6 +13,7 @@
     <meta name="viewport" content="width=device-width">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
 	<link href="{% static 'bootstrap/css/bootstrap.min.css' %}" rel="stylesheet" type="text/css" />
+    <link href="assets/css/bootstrap-responsive.css" rel="stylesheet">
 	<script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
 	<link href="{% static 'css/openvote.css' %}" rel="stylesheet" type="text/css" />
 
@@ -22,8 +23,8 @@
     <![endif]-->
 
 	<!-- Google Maps --> 
-    <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
-	<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCy9qqGNDbHN_gtdFvQ6W25ydBD3D6scqk&sensor=false"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCy9qqGNDbHN_gtdFvQ6W25ydBD3D6scqk&sensor=false"></script>
     <script type="text/javascript">
         function locate() {
             var lat = "{{ lat|escapejs }}";
