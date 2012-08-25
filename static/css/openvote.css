@@ -15,8 +15,8 @@ body {
     padding: 5px;
     border: none;
 }
-.mobile {
-    top: -33px;
+.navbar .btn-navbar .icon-bar {
+    height: 1px;
 }
 .topspacer {
     padding: 33px;
@@ -39,6 +39,11 @@ hr {
     margin: 8px 0;
     border-top: 1px solid #ccc;
     border-bottom: 1px solid #ffffff;
+}
+.center {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
 }
 .nav, .nav-election, .nav-candidate {
     color: #333344;
@@ -102,6 +107,23 @@ dd {
 /* Tablet
 ------------------------- */
 @media (max-width: 768px) {
+    body {
+        position: absolute;
+        left: -20px;
+        width: 100%;
+    }
+    .logo {
+        top: -10px;
+        z-index: 0;
+    }
+    .box {
+        padding:12px;
+        margin-bottom: 12px;
+        border: none;
+        -webkit-box-shadow: none;
+           -moz-box-shadow: none;
+                box-shadow: none;
+    }
 }
 
 /* Phones

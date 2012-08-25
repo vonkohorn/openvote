@@ -57,6 +57,7 @@
     <input type='hidden' id='voterid' value="{{ voter.id }}"/>
 
     <div class="hidden-phone">
+
         <div class="background" id="geo-map"><div id="map_canvas"></div></div>
         <div class="logo"><a href="/"><img src="{% static 'g/ovlogo100.png' %}"/></a></div>
         <div class="topspacer"></div>
@@ -65,22 +66,53 @@
         <div class="container">
             <div class="row">
                 <div class="span3">
-                    {% include 'openvote/templates/nav.html' %}
-                    {% include 'openvote/templates/footer.html' %}
+                    <div class="box">
+                        {% include 'openvote/templates/nav.html' %}
+                    </div>
+                    <div class="box">
+                        {% include 'openvote/templates/footer.html' %}
+                    </div>
                 </div>
                 <div class="span9">
-                    <div class="box">
-                        <div ng-view></div>    
-                    </div>
+                    <div class="box"><div ng-view></div></div>
                 </div>
             </div>
         </div>
-        
+
     </div>
-    
     <div class="visible-phone">
-        <div class="logo mobile"><a href="/"><img src="{% static 'g/ovlogo100.png' %}"/></a></div>
-        <div ng-view></div>    
+
+        <div style="position: absolute; margin-top: -20px; margin-left: 8px;">
+            <img src="{% static 'g/ovlogo100.png' %}" height='80' width='80' alt="OpenVote.US"></img>
+        </div>
+
+        <div class="navbar">
+          <div class="navbar-inner">
+            <div class="container">
+
+              <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+              <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </a>
+                
+              <a target="_self" href="{% url "logout" %}" class="btn btn-small" style="float: right;">Sign out</a>
+              <button id="see-position" class="btn btn-info btn-small" style="float: right; margin-right: 5px;">Search location</button>
+
+              <!-- collapsed navbar content opens the same nav template as the desktop view -->
+              <div class="nav-collapse">
+                {% include 'openvote/templates/nav.html' %}
+        
+              </div>
+         
+            </div>
+          </div>
+        </div>    
+ 
+
+        <div class="box"><div ng-view></div></div>
+
     </div>
 
 
