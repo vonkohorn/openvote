@@ -111,6 +111,7 @@ dd {
     body {
         position: absolute;
         left: -20px;
+        right: -20px;
         width: 100%;
     }
     .logo {
