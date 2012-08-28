@@ -21,9 +21,11 @@ angular.module('ovApp', []).
   }]);
 
 function AppCtrl($scope) {
-    $scope.voter = {name:'Guest', is_authenticated:false};
+    $scope.voter = window.voter_json;
+    $scope.voter2 = {name:'Guest', is_authenticated:false};
 
-    $scope.elections = [
+    $scope.elections = window.app_json;
+    $scope.elections2 = [
         {
             name:'US Presidential Election 2012',
             voted:false,
@@ -128,7 +130,6 @@ function AppCtrl($scope) {
     };
 
     $scope.updateElection = function(election) {
-        console.log("WE!!FWEF");
         $scope.current_election = election;
     };
 }
