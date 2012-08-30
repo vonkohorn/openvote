@@ -26,6 +26,7 @@ urlpatterns = patterns('',
     url(r'^terms$', 'openvote.views.terms', name='terms'),
     url(r'^privacy$', 'openvote.views.privacy', name='privacy'),
     url(r'^code$', 'openvote.views.code', name='code'),
+    url(r'^humans.txt$', 'openvote.views.humans', name='humans'),
     
     # Include our OAuth urls
     url(r'', include('social_auth.urls')),

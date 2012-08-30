@@ -1,0 +1,21 @@
+# humanstxt.org/
+# The humans responsible & technology colophon
+
+# TEAM
+
+    Dan  von Kohorn -- @danvk
+    Doug von Kohorn -- @dougvk
+
+# THANKS
+
+    US Federal Elections Committee
+    http://stackoverflow.com
+    Google Maps API v3
+
+# TECHNOLOGY COLOPHON
+
+    HTML5, CSS3, 
+    jQuery, Modernizr
+    Angular, Django, MongoDB
+    JavaScript, Python
+    
