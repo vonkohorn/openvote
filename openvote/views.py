@@ -5,14 +5,18 @@ import urllib2
 
 from django.contrib.auth import logout as auth_logout
 from django.shortcuts import render_to_response, redirect
+from django.utils.safestring import SafeString
 
 from social_auth import backends
 from social_auth.models import UserSocialAuth
 
 from openvote.models import Voter
+from elections.models import Election, Candidate, Vote
+from rest.serialize import JSONSerializer
 
 # Views
 def home(request):
+    jsonSerializer = JSONSerializer()
     client_ip = _get_client_ip(request)
     lat, lon = _get_client_location(client_ip)
     user = request.user
@@ -20,6 +24,58 @@ def home(request):
     if user.is_authenticated():
         social_user = UserSocialAuth.get_social_auth_for_user(user)[0]
         voter = _create_or_get_voter(social_user, lat, lon)
+
+    # Grab the relevant voter
+    voter_json = json.loads("{}")
+    if voter is not None:
+        voter_json = jsonSerializer.serialize(voter, use_natural_keys=True)
+    voter_json = SafeString(voter_json)
+
+    # Grab all elections (for now)
+    election_data = jsonSerializer.serialize(Election.objects.all().order_by('id'))
+    election_data = json.loads(election_data)
+    election_ids = map(lambda data: int(data["id"]), election_data)
+
+    # Grab all candidates in the above elections
+    candidate_data = jsonSerializer.serialize(Candidate.objects.filter(election__in=election_ids).order_by('election'))
+    candidate_data = json.loads(candidate_data)
+    candidate_ids = map(lambda data: int(data["id"]), candidate_data)
+
+    # Create a dictionary of approved votes
+    votes = Vote.objects.filter(candidate__in=candidate_ids, election__in=election_ids)
+    approval_votes = {}
+    for vote in votes:
+        approval_votes["%s,%s" % (vote.election_id, vote.candidate_id)] = vote.approval
+        approval_votes["%d" % vote.election_id] = True
+
+    # Create the data structure to send up to frontend
+    app_json = []
+    for election in election_data:
+        # Add the voted and candidate attributes to every election
+        election["voted"] = False
+        if int(election["id"]) in approval_votes:
+            election["voted"] = True
+        election["candidates"] = []
+
+        # Append to app_json
+        app_json.append(election)
+        for candidate in candidate_data:
+            # Dont bother adding candidate if not relevant to current election
+            if int(candidate["election"]["pk"]) != int(election["id"]):
+                continue
+
+            # Add approved attribute
+            approved = False
+            try:
+                approved = approval_votes["%s,%s" % (election["id"], candidate["id"])]
+            except:
+                pass
+            candidate["approved"] = approved
+
+            # Append candidate to list
+            app_json[-1]["candidates"].append(candidate)
+    app_json = SafeString(json.dumps(app_json))
+
     return render_to_response('openvote/templates/angularbase.html', locals())
 
 def maptest(request):
@@ -70,6 +126,7 @@ def _create_or_get_voter(user, lat, lon):
 
     try:
         voter = Voter.objects.get(anonkey=uid)
+        # TODO: Update lat/lon here
     except:
         voter = Voter(
             anonkey = uid,
