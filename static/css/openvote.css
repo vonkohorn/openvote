@@ -18,6 +18,10 @@ body {
 .topspacer {
     padding: 33px;
 }
+.well{
+    margin-left: 40px;
+    margin-right: 40px;
+}
 .box{
 	background-color: #fff;
     position: relative;
