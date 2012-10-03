@@ -14,7 +14,7 @@ angular.module('ovApp', []).
             .when('/code', {templateUrl:'/static/templates/code.html'})
             .when('/election/list', {controller:ElectionListCtrl, templateUrl:'/static/templates/election_list.html'})
             .when('/election/new', {controller:AddElectionCtrl, templateUrl:'/static/templates/election_edit.html'})
-            .when('/election/edit/:electionID', {controller:EditElectionCtrl, templateUrl:'/static/templates/election_edit.html'})
+            .when('/election/edit/:electionID', {controller:ElectionCtrl, templateUrl:'/static/templates/election_edit.html'})
             .when('/election/:electionID', {controller:ElectionCtrl, templateUrl:'/static/templates/election.html'})
             .when('/candidate/:candidateID', {controller:CandidateCtrl, templateUrl:'/static/templates/candidate.html'})
             .otherwise({});
@@ -138,20 +138,6 @@ function ElectionListCtrl($scope) {
 }
 
 function AddElectionCtrl($scope) {
-}
-
-function EditElectionCtrl($scope, $location, $routeParams) {
-    if ($scope.current_election.id !== $routeParams.electionID) {
-        $scope.current_election = _.filter(
-            _.map($scope.elections, 
-                function (election) {
-                    if (election.id == $routeParams.electionID) { return election; }
-                }),
-            function (election) {
-                if (election) { return election; }
-            }
-        )[0];
-    }
 }
 
 function ElectionCtrl($scope, $location, $routeParams) {
