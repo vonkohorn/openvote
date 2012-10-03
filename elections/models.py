@@ -32,8 +32,8 @@ class Candidate(models.Model):
 
 class Vote(models.Model):
     voter = models.ForeignKey(Voter)
-    candidate = models.ForeignKey(Candidate)
-    election = models.ForeignKey(Election)      # redundant, but speeds up queries.  helpful?  maybe not.
+    candidate = models.CharField(max_length=100)
+    election_guuid = models.CharField(max_length=100)
     approval = models.BooleanField()
     created = models.DateTimeField(auto_now_add=True)
 

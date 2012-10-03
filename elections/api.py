@@ -1,19 +1,19 @@
 from tastypie.resources import ModelResource
 from tastypie.authorization import Authorization
 
-from elections.models import Election, Candidate, Vote, InterestEstimate
+from elections.models import Vote, InterestEstimate
 
-class ElectionResource(ModelResource):
-    class Meta:
-        queryset = Election.objects.all()
-        resource_name = 'election'
-        authorization = Authorization()
+#class ElectionResource(ModelResource):
+    #class Meta:
+        #queryset = Election.objects.all()
+        #resource_name = 'election'
+        #authorization = Authorization()
         
-class CandidateResource(ModelResource):
-    class Meta:
-        queryset = Candidate.objects.all()
-        resource_name = 'candidate'
-        authorization = Authorization()
+#class CandidateResource(ModelResource):
+    #class Meta:
+        #queryset = Candidate.objects.all()
+        #resource_name = 'candidate'
+        #authorization = Authorization()
         
 class VoteResource(ModelResource):
     class Meta:
