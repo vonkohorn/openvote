@@ -9,8 +9,9 @@ class Election(models.Model):
     admin = models.ForeignKey(Voter)
 
     votercount = models.PositiveIntegerField()
-    avglat = models.DecimalField(max_digits=7, decimal_places=4)
-    avglon = models.DecimalField(max_digits=7, decimal_places=4)
+    election_day = models.DateField()
+    #avglat = models.DecimalField(max_digits=7, decimal_places=4)
+    #avglon = models.DecimalField(max_digits=7, decimal_places=4)
 
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
@@ -23,8 +24,8 @@ class Election(models.Model):
     
 class Candidate(models.Model):
     election = models.ForeignKey(Election)
-    voter = models.ForeignKey(Voter)
-    name = models.CharField(max_length=140)
+    name = models.CharField(max_length=50)
+    party = models.CharField(max_length=50)
     desc = models.CharField(max_length=500)
     htmlslug = models.TextField()
     created = models.DateTimeField(auto_now_add=True)
@@ -33,7 +34,7 @@ class Candidate(models.Model):
 class Vote(models.Model):
     voter = models.ForeignKey(Voter)
     candidate = models.CharField(max_length=100)
-    election_guuid = models.CharField(max_length=100)
+    election = models.ForeignKey(Election)
     approval = models.BooleanField()
     created = models.DateTimeField(auto_now_add=True)
 

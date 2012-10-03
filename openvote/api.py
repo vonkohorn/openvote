@@ -1,7 +1,7 @@
 from tastypie.resources import ModelResource
 from tastypie.authorization import Authorization
 
-from openvote.models import Voter, Role
+from openvote.models import Voter
 
 class VoterResource(ModelResource):
     class Meta:

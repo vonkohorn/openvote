@@ -4,15 +4,15 @@ from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from tastypie.api import Api
 
 from openvote.api import VoterResource
-from elections.api import VoteResource, \
+from elections.api import VoteResource, ElectionResource, CandidateResource, \
                             InterestEstimateResource
 
 v1_api = Api(api_name='v1')
 v1_api.register(VoterResource())
 #v1_api.register(RoleResource())
 v1_api.register(VoteResource())
-#v1_api.register(ElectionResource())
-#v1_api.register(CandidateResource())
+v1_api.register(ElectionResource())
+v1_api.register(CandidateResource())
 v1_api.register(InterestEstimateResource())
 
 urlpatterns = patterns('',
