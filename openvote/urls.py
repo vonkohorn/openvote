@@ -15,11 +15,14 @@ v1_api.register(ElectionResource())
 v1_api.register(CandidateResource())
 v1_api.register(InterestEstimateResource())
 
-urlpatterns = patterns('',
-    url(r'^.*$', 'openvote.views.home', name='home'),
+# Allow serving static files locally, for now.
+# TODO: Put static files on CDN/S3
+urlpatterns = staticfiles_urlpatterns()
+urlpatterns += patterns('',
     url(r'^maptest$', 'openvote.views.maptest', name='maptest'),
     url(r'^logout$', 'openvote.views.logout', name='logout'),
     url(r'^api/', include(v1_api.urls)),
+    url(r'^.*$', 'openvote.views.home', name='home'),
 
     url(r'^about$', 'openvote.views.about', name='about'),
     url(r'^help$', 'openvote.views.help', name='help'),
@@ -34,6 +37,3 @@ urlpatterns = patterns('',
     # url(r'^admin/', include(admin.site.urls)),
 )
 
-# Allow serving static files locally, for now.
-# TODO: Put static files on CDN/S3
-urlpatterns += staticfiles_urlpatterns()
