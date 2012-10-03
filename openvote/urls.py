@@ -22,6 +22,10 @@ urlpatterns += patterns('',
     url(r'^maptest$', 'openvote.views.maptest', name='maptest'),
     url(r'^logout$', 'openvote.views.logout', name='logout'),
     url(r'^api/', include(v1_api.urls)),
+
+    # Include our OAuth urls
+    url(r'', include('social_auth.urls')),
+
     url(r'^.*$', 'openvote.views.home', name='home'),
 
     url(r'^about$', 'openvote.views.about', name='about'),
@@ -31,9 +35,6 @@ urlpatterns += patterns('',
     url(r'^code$', 'openvote.views.code', name='code'),
     url(r'^humans.txt$', 'openvote.views.humans', name='humans'),
     
-    # Include our OAuth urls
-    url(r'', include('social_auth.urls')),
-
     # url(r'^admin/', include(admin.site.urls)),
 )
 
