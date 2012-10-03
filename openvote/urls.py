@@ -26,14 +26,14 @@ urlpatterns += patterns('',
     # Include our OAuth urls
     url(r'', include('social_auth.urls')),
 
-    url(r'^.*$', 'openvote.views.home', name='home'),
-
-    url(r'^about$', 'openvote.views.about', name='about'),
-    url(r'^help$', 'openvote.views.help', name='help'),
-    url(r'^terms$', 'openvote.views.terms', name='terms'),
-    url(r'^privacy$', 'openvote.views.privacy', name='privacy'),
-    url(r'^code$', 'openvote.views.code', name='code'),
-    url(r'^humans.txt$', 'openvote.views.humans', name='humans'),
+    url(r'^$', 'openvote.views.home', name='home'),
+    url(r'^about$', 'openvote.views.home', name='home'),
+    url(r'^help$', 'openvote.views.home', name='home'),
+    url(r'^terms$', 'openvote.views.home', name='home'),
+    url(r'^privacy$', 'openvote.views.home', name='home'),
+    url(r'^code$', 'openvote.views.home', name='home'),
+    url(r'^election', 'openvote.views.home', name='home'),
+    url(r'^candidate', 'openvote.views.home', name='home'),
     
     # url(r'^admin/', include(admin.site.urls)),
 )
