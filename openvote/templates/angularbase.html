@@ -46,11 +46,11 @@
             if (lat == 37.4419) {
                 var theZoom = 5;
             } else {
-                var theZoom = 11;
+                var theZoom = 12;
             }
             var mapOptions = {
                 center: new google.maps.LatLng(lat, lon),
-                zoom: theZoom, zoomControl: false, panControl: false, scaleControl: false, scrollwheel: false,
+                zoom: theZoom, draggable: false, zoomControl: false, panControl: false, scaleControl: false, scrollwheel: false,
                 disableDefaultUI: true,
                 mapTypeId: google.maps.MapTypeId.HYBRID
             };
