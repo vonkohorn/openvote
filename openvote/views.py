@@ -62,6 +62,8 @@ def privacy(request):
     return render_to_response('openvote/templates/privacy.html', locals())
 def code(request):
     return render_to_response('openvote/templates/code.html', locals())
+def humans(request):
+    return render_to_response('static/humans.txt', {})
 
 
 # Internal

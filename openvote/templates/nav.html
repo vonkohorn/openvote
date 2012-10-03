@@ -1,24 +1,25 @@
 <div class="nav">
     <input type="checkbox" ng-model="voter.registered_to_vote"> I'm registered to vote<br/>
+    <a href="https://register.rockthevote.com/registrants/new" target="_new"><i class="icon-flag"></i> Register to Vote</a><br/>
     <a id="see-position"><i class="icon-globe"></i> Search location</a><br/>
-    <a href="https://register.rockthevote.com/registrants/new" target="_new"><i class="icon-flag"></i> Register to Vote</a>
-</div>
+    <hr>
 
-<hr>
-
-<h3 class="nav"><a href="/election/list" data-toggle="collapse" data-target=".nav-collapse">Election List</a></h3>
-<ul class="unstyled">
-    <li ng-repeat="election in elections">
-        <div class="nav-election">
-            <a href="/election/<[election.id]>" data-toggle="collapse" data-target=".nav-collapse" ng-click="updateElection(election)"><[election.name]></a>
-            <div ng-repeat="candidate in election.candidates">
-                <div class="nav-candidate">
-                    <input class="vote" type="checkbox" ng-model="candidate.approved">
-                    <a href="/candidate/<[ candidate.id ]>" data-toggle="collapse" data-target=".nav-collapse" ng-click="updateCandidate(candidate)"><[ candidate.name ]></a>
+    <h3 class="nav"><a href="/election/list" data-toggle="collapse" data-target=".nav-collapse">Election List</a></h3>
+    <ul class="unstyled">
+        <li ng-repeat="election in elections">
+            <div class="nav-election">
+                <a href="/election/<[election.id]>" data-toggle="collapse" data-target=".nav-collapse" ng-click="updateElection(election)"><[election.name]></a>
+                <div ng-repeat="candidate in election.candidates">
+                    <div class="nav-candidate">
+                        <input class="vote" type="checkbox" ng-model="candidate.approved">
+                        <a href="/candidate/<[ candidate.id ]>" data-toggle="collapse" data-target=".nav-collapse" ng-click="updateCandidate(candidate)"><[ candidate.name ]></a>
+                    </div>
                 </div>
             </div>
-        </div>
-    </li>
-</ul>
+        </li>
+    </ul>
+    <hr/>
+    <a href="/share"><i class="icon-heart"></i> Get out the vote</a><br/>
 
 
+</div>

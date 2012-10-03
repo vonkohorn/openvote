@@ -1,3 +1,4 @@
+
 body {
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
     font-size: 13px;
@@ -17,6 +18,13 @@ body {
 }
 .topspacer {
     padding: 33px;
+}
+.well{
+    margin-left: 50px;
+    margin-right: 50px;
+}
+.hero-unit{
+    padding: 30px;
 }
 .box{
 	background-color: #fff;
