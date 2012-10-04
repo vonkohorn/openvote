@@ -124,7 +124,7 @@ def _get_initial_response():
     votes = Vote.objects.filter(candidate__in=candidate_ids, election__in=election_ids)
     approval_votes = {}
     for vote in votes:
-        approval_votes["%s,%s" % (vote.election_id, vote.candidate_id)] = vote.approval
+        approval_votes["%s,%s" % (vote.election_id, vote.candidate_id)] = [vote.approval, vote.id]
         approval_votes["%d" % vote.election_id] = True
 
     # Create the data structure to send up to frontend
@@ -145,11 +145,14 @@ def _get_initial_response():
 
             # Add approved attribute
             approved = False
+            vote_id = ""
             try:
-                approved = approval_votes["%s,%s" % (election["id"], candidate["id"])]
+                approved = approval_votes["%s,%s" % (election["id"], candidate["id"])][0]
+                vote_id = approval_votes["%s,%s" % (election["id"], candidate["id"])][1]
             except:
                 pass
             candidate["approved"] = approved
+            candidate["vote_id"] = vote_id
 
             # Append candidate to list
             app_json[-1]["candidates"].append(candidate)

@@ -4,8 +4,7 @@ from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from tastypie.api import Api
 
 from openvote.api import VoterResource
-from elections.api import VoteResource, ElectionResource, CandidateResource, \
-                            InterestEstimateResource
+from elections.api import VoteResource, ElectionResource, CandidateResource
 
 v1_api = Api(api_name='v1')
 v1_api.register(VoterResource())
@@ -13,7 +12,7 @@ v1_api.register(VoterResource())
 v1_api.register(VoteResource())
 v1_api.register(ElectionResource())
 v1_api.register(CandidateResource())
-v1_api.register(InterestEstimateResource())
+#v1_api.register(InterestEstimateResource())
 
 # Allow serving static files locally, for now.
 # TODO: Put static files on CDN/S3
@@ -37,4 +36,3 @@ urlpatterns += patterns('',
     
     # url(r'^admin/', include(admin.site.urls)),
 )
-

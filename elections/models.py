@@ -33,7 +33,7 @@ class Candidate(models.Model):
 
 class Vote(models.Model):
     voter = models.ForeignKey(Voter)
-    candidate = models.CharField(max_length=100)
+    candidate = models.ForeignKey(Candidate)
     election = models.ForeignKey(Election)
     approval = models.BooleanField()
     created = models.DateTimeField(auto_now_add=True)
