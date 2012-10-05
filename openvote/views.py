@@ -36,6 +36,7 @@ def home(request):
     voter_json = json.loads("{}")
     if voter is not None:
         voter_json = jsonSerializer.serialize(voter, use_natural_keys=True)
+        voter_json["voter"] = _get_resource_uri("voter", voter["id"])
         voter_json = SafeString(voter_json)
     app_json = _get_initial_response()
 
@@ -153,7 +154,6 @@ def _get_initial_response():
             try:
                 approved = approval_votes["%s,%s" % (election["id"], candidate["id"])][0]
                 vote_id = approval_votes["%s,%s" % (election["id"], candidate["id"])][1]
-                vote = _get_resource_uri('vote', int(vote_id))
             except:
                 pass
 
@@ -161,7 +161,7 @@ def _get_initial_response():
             app_json[election["id"]]["candidates"][candidate["id"]] = candidate.copy()
             candidate_json = app_json[election["id"]]["candidates"][candidate["id"]]
             candidate_json["approved"] = approved
-            candidate_json["vote"] = vote
+            candidate_json["vote"] = vote_id
             candidate_json["candidate"] = _get_resource_uri('candidate', candidate["id"])
             candidate_json["election"] = _get_resource_uri('election', 
                                                         int(candidate["election"]["pk"]))

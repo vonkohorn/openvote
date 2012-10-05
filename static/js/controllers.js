@@ -1,4 +1,4 @@
-function AppCtrl($scope) {
+function AppCtrl($scope, Vote) {
     $scope.voter = window.openvote.voter_json;
 
     $scope.elections = window.openvote.app_json;
@@ -18,8 +18,31 @@ function AppCtrl($scope) {
     $scope.updateElection = function(election) {
         $scope.current_election = election;
     };
+
+    $scope.vote = function(candidate) {
+        var vote_json = {
+            "candidate": candidate.candidate,
+            "election": candidate.election,
+            "voter": "/api/v1/voter/1/",
+            "approval": candidate.approved
+        };
+
+        if (candidate.vote === "") {
+            Vote.save({}, vote_json,
+                function (vote) {
+                    //TODO: update vote id with new value
+                }
+            );
+        } else {
+            Vote.update({voteId: candidate.vote}, vote_json, null,
+                function (error) {
+                    //TODO: Set approved to original value on error
+                }
+            );
+        }
+    };
 }
-AppCtrl.$inject = ['$scope'];
+AppCtrl.$inject = ['$scope', 'Vote'];
 
 function ElectionListCtrl($scope) {
 }
