@@ -34,6 +34,15 @@ function ElectionCtrl($scope, $location, $routeParams, Election) {
         $scope.current_election = $scope.elections[$routeParams.electionId];
     }
 
+    $scope.reset = function () {
+        var electionId = $routeParams.electionId;
+        Election.get({electionId: electionId},
+            function (election) {
+                _.extend($scope.elections[electionId], election);
+            }
+        );
+    };
+
     $scope.update = function () {
         var election = $scope.current_election;
         var electionId = $routeParams.electionId;
@@ -46,8 +55,17 @@ function ElectionCtrl($scope, $location, $routeParams, Election) {
                 "admin": election.admin
         };
         Election.update({electionId: electionId}, update_json,
-            function (election) {
+            function () {
                 _.extend($scope.elections[electionId], update_json);
+            }
+        );
+    };
+
+    $scope.destroy = function () {
+        var electionId = $routeParams.electionId;
+        Election.destroy({electionId: electionId},
+            function () {
+                delete $scope.elections[electionId];
             }
         );
     };
@@ -71,7 +89,7 @@ function CandidateCtrl($scope, $location, $routeParams, Candidate) {
                 "election": candidate.election
         };
         Candidate.update({candidateId: candidateId}, update_json,
-            function (candidate) {
+            function () {
                 _.extend($scope.elections[electionId].candidates[candidateId], update_json);
             }
         );
