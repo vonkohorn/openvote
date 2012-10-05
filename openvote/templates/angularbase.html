@@ -16,21 +16,24 @@
 	<link href="{% static 'css/openvote.css' %}" rel="stylesheet" type="text/css" />
 
     <script type="text/javascript">
-        window.voter_json = {{voter_json}};
+        var openvote = openvote || {}
+        openvote.voter_json = {{voter_json}};
     </script>
     <script type="text/javascript">
-        window.app_json = {{app_json}};
+        var openvote = openvote || {}
+        openvote.app_json = {{app_json}};
     </script>
 
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
 	<script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
 
     <!-- Angular -->
-    <script src="http://code.angularjs.org/angular-1.0.1.js"></script>
-    <script src="http://code.angularjs.org/angular-resource-1.0.1.js"></script>
+    <script src="http://code.angularjs.org/1.0.2/angular.js"></script>
     <script src="{% static 'js/angular-resource.js' %}"></script>
     <script src="http://documentcloud.github.com/underscore/underscore.js"></script>
-    <script src="{% static 'js/openvote_angular.js' %}"></script>
+    <script src="{% static 'js/controllers.js' %}"></script>
+    <script src="{% static 'js/services.js' %}"></script>
+    <script src="{% static 'js/app.js' %}"></script>
     <!-- <script src="{% static 'js/openvote_django_api.js' %}"></script> -->
 
     <!-- HTML5 shim for IE6-8 -->
