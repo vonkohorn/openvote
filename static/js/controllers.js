@@ -46,9 +46,9 @@ function ElectionCtrl($scope, $location, $routeParams, Election) {
                 "admin": election.admin
         };
         Election.update({electionId: electionId}, update_json,
-                        function (election) {
-                            _.extend($scope.elections[electionId], update_json);
-                        }
+            function (election) {
+                _.extend($scope.elections[electionId], update_json);
+            }
         );
     };
 }
@@ -71,10 +71,9 @@ function CandidateCtrl($scope, $location, $routeParams, Candidate) {
                 "election": candidate.election
         };
         Candidate.update({candidateId: candidateId}, update_json,
-                        function (candidate) {
-                            alert('WORKED');
-                            _.extend($scope.elections[electionId].candidates[candidateId], update_json);
-                        }
+            function (candidate) {
+                _.extend($scope.elections[electionId].candidates[candidateId], update_json);
+            }
         );
     };
 }
