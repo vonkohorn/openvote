@@ -3,10 +3,24 @@
     <h2><[current_election.name]></h2>
     id: <[current_election.id]> <br/>
     description: <[current_election.desc]> <br/>
-    
-    <table>
+    admin: <[current_election.admin]> <br/>
+    created: <[current_election.created]> <br/>
+    election_day: <[current_election.election_day]> <br/>
+    htmlslug: <[current_election.htmlslug]> <br/>
+    resource_uri: <[current_election.resource_uri]> <br/>
+    updated: <[current_election.updated]> <br/>
+    votercount: <[current_election.votercount]> <br/>
+    <br/>
+    Candidates:<br/>
+    <table border=1>
     <tr ng-repeat="candidate in current_election.candidates | filter:search | orderBy:'name'">
         <td>candidate name: <[candidate.name]></td>
+        <td>election: <[candidate.election]></td>
+        <td>party: <[candidate.party]></td>
+        <td>desc: <[candidate.desc]></td>
+        <td>htmlslug: <[candidate.htmlslug]></td>
+        <td>created: <[candidate.created]></td>
+        <td>updated: <[candidate.updated]></td>
     </tr>
     </table>
 
