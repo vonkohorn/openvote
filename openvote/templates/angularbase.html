@@ -2,7 +2,7 @@
 {% load url from future %}
 
 <!DOCTYPE html>
-<html lang="en" ng-app="ovApp"> 
+<html lang="en" ng-app="openvote"> 
 
 <head>
     <meta charset="utf-8" />
@@ -28,6 +28,7 @@
     <!-- Angular -->
     <script src="http://code.angularjs.org/angular-1.0.1.js"></script>
     <script src="http://code.angularjs.org/angular-resource-1.0.1.js"></script>
+    <script src="{% static 'js/angular-resource.js' %}"></script>
     <script src="http://documentcloud.github.com/underscore/underscore.js"></script>
     <script src="{% static 'js/openvote_angular.js' %}"></script>
     <!-- <script src="{% static 'js/openvote_django_api.js' %}"></script> -->
@@ -143,7 +144,9 @@
           </div>
         </div>    
 
-        <div class="box"><div ng-view></div></div>
+        <div class="box">
+            <div ng-view></div>
+        </div>
         <br/><br/<br/>
         <hr/>
         <div class="box">{% include 'openvote/templates/footer.html' %}</div>

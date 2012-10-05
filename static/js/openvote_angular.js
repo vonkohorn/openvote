@@ -1,4 +1,21 @@
-angular.module('ovApp', []).
+angular.module('openvoteServices', ['ngResource'])
+    .factory('Election', function($resource){
+        // Code for defining Election API stuff
+        return $resource('/api/v1/election/:electionId', {}, {
+            get: {method: 'GET', params: {format: 'json'}},
+            save: {method: 'POST', headers: {'Content-Type': 'application/json'}},
+            update: {method: 'PUT', headers: {'Content-Type': 'application/json'}}
+        });
+    })
+    .factory('Candidate', function($resource){
+        // Code for defining Election API stuff
+        return $resource('/api/v1/candidate/:electionId', {}, {
+            get: {method: 'GET', params: {format: 'json'}},
+            save: {method: 'POST', headers: {'Content-Type': 'application/json'}},
+            update: {method: 'PUT', headers: {'Content-Type': 'application/json'}}
+        });
+    });
+angular.module('openvote', ['openvoteServices']).
     config(function($interpolateProvider) {
         $interpolateProvider.startSymbol('<[');
         $interpolateProvider.endSymbol(']>');
@@ -14,9 +31,10 @@ angular.module('ovApp', []).
             .when('/code', {templateUrl:'/static/templates/code.html'})
             .when('/election/list', {controller:ElectionListCtrl, templateUrl:'/static/templates/election_list.html'})
             .when('/election/new', {controller:AddElectionCtrl, templateUrl:'/static/templates/election_edit.html'})
-            .when('/election/edit/:electionID', {controller:ElectionCtrl, templateUrl:'/static/templates/election_edit.html'})
-            .when('/election/:electionID', {controller:ElectionCtrl, templateUrl:'/static/templates/election.html'})
-            .when('/candidate/:candidateID', {controller:CandidateCtrl, templateUrl:'/static/templates/candidate.html'})
+            .when('/election/edit/:electionId', {controller:ElectionCtrl, templateUrl:'/static/templates/election_edit.html'})
+            .when('/election/:electionId', {controller:ElectionCtrl, templateUrl:'/static/templates/election.html'})
+            .when('/election/:electionId/candidate/:candidateId', {controller:CandidateCtrl, 
+                                                                    templateUrl:'/static/templates/candidate.html'})
             .otherwise({});
   }]);
 
@@ -140,32 +158,52 @@ function ElectionListCtrl($scope) {
 function AddElectionCtrl($scope) {
 }
 
-function ElectionCtrl($scope, $location, $routeParams) {
-    if ($scope.current_election.id !== $routeParams.electionID) {
-        $scope.current_election = _.filter(
-            _.map($scope.elections, 
-                function (election) {
-                    if (election.id == $routeParams.electionID) { return election; }
-                }),
-            function (election) {
-                if (election) { return election; }
-            }
-        )[0];
+function ElectionCtrl($scope, $location, $routeParams, Election) {
+    if ($scope.current_election.id !== $routeParams.electionId) {
+        $scope.current_election = $scope.elections[$routeParams.electionId];
+    }
+
+    $scope.update = function () {
+        var election = $scope.current_election;
+        var electionId = $routeParams.electionId;
+        var update_json = {
+                "desc": election["desc"],
+                "election_day": "2012-11-10",
+                "htmlslug": election["htmlslug"],
+                "name": election["name"],
+                "votercount": election["votercount"],
+                "admin": election["admin"]
+        };
+        Election.update({electionId: electionId}, update_json,
+                        function (election) {
+                            _.extend($scope.elections[electionId], update_json)
+                        }
+        );
     }
 }
 
-function CandidateCtrl($scope, $location, $routeParams) {
-    if ($scope.current_candidate.id !== $routeParams.candidateID) {
-        $scope.current_candidate = _.filter(
-            _.map($scope.elections,
-                function (election) {
-                    var current_candidate  = _.find(election.candidates, function (candidate) { return candidate.id == $routeParams.candidateID; });
-                    if (current_candidate) { return current_candidate; }
-                }),
-            function (candidate) { 
-                if (candidate) { return candidate; }
-            }
-        )[0];
+function CandidateCtrl($scope, $location, $routeParams, Candidate) {
+    if ($scope.current_candidate.id !== $routeParams.candidateId) {
+        $scope.current_candidate = $scope.elections[$routeParams.electionId]["candidates"][$routeParams.candidateId];
+    }
+
+    $scope.update = function () {
+        var candidate = $scope.current_candidate;
+        var electionId = $routeParams.electionId;
+        var candidateId = $routeParams.candidateId;
+        var update_json = {
+                "desc": candidate["desc"],
+                "election_day": "2012-11-10",
+                "htmlslug": candidate["htmlslug"],
+                "name": candidate["name"],
+                "election": candidate["election"]
+        };
+        Candidate.update({candidateId: candidateId}, update_json,
+                        function (candidate) {
+                            alert('WORKED');
+                            _.extend($scope.elections[electionId]["candidates"][candidateId], update_json)
+                        }
+        );
     }
 }
 

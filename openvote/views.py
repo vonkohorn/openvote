@@ -3,6 +3,7 @@ import os
 import pkgutil
 import urllib2
 
+from django.core.urlresolvers import reverse
 from django.contrib.auth import logout as auth_logout
 from django.shortcuts import render_to_response, redirect
 from django.utils.safestring import SafeString
@@ -128,16 +129,19 @@ def _get_initial_response():
         approval_votes["%d" % vote.election_id] = True
 
     # Create the data structure to send up to frontend
-    app_json = []
+    app_json = {}
     for election in election_data:
         # Add the voted and candidate attributes to every election
         election["voted"] = False
         if int(election["id"]) in approval_votes:
             election["voted"] = True
-        election["candidates"] = []
+        election["candidates"] = {}
 
-        # Append to app_json
-        app_json.append(election)
+        # Append election to app_json
+        app_json[election["id"]] = election.copy()
+        election_json = app_json[election["id"]]
+        election_json["election"] = _get_resource_uri('election', election["id"])
+        election_json["admin"] = _get_resource_uri('voter', election["admin"]["pk"])
         for candidate in candidate_data:
             # Dont bother adding candidate if not relevant to current election
             if int(candidate["election"]["pk"]) != int(election["id"]):
@@ -149,12 +153,21 @@ def _get_initial_response():
             try:
                 approved = approval_votes["%s,%s" % (election["id"], candidate["id"])][0]
                 vote_id = approval_votes["%s,%s" % (election["id"], candidate["id"])][1]
+                vote = _get_resource_uri('vote', int(vote_id))
             except:
                 pass
-            candidate["approved"] = approved
-            candidate["vote_id"] = vote_id
 
-            # Append candidate to list
-            app_json[-1]["candidates"].append(candidate)
+            # Append candidate to app_json
+            app_json[election["id"]]["candidates"][candidate["id"]] = candidate.copy()
+            candidate_json = app_json[election["id"]]["candidates"][candidate["id"]]
+            candidate_json["approved"] = approved
+            candidate_json["vote"] = vote
+            candidate_json["candidate"] = _get_resource_uri('candidate', candidate["id"])
+            candidate_json["election"] = _get_resource_uri('election', 
+                                                        int(candidate["election"]["pk"]))
     app_json = SafeString(json.dumps(app_json))
     return app_json
+
+def _get_resource_uri(resource_name, pk):
+    return reverse("api_dispatch_detail", 
+        kwargs={'resource_name': resource_name, 'pk': pk, 'api_name': 'v1'})
