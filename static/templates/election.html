@@ -1,7 +1,13 @@
 <div ng-controller="ElectionCtrl">
 
-    <h2><[current_election.name]></h2> ( id = <[current_election.id]> )
-    <[current_election.desc]>
+    <h2><[current_election.name]></h2>
+    id: <[current_election.id]> <br/>
+    description: <[current_election.desc]> <br/>
+    
+    <table>
+    <tr ng-repeat="candidate in current_election.candidates | filter:search | orderBy:'name'">
+        <td>candidate name: <[candidate.name]></td>
+    </tr>
+    </table>
 
-    </form>
 </div>
