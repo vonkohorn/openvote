@@ -19,4 +19,7 @@ angular.module('openvote', ['openvoteServices']).
             .when('/election/:electionId/candidate/:candidateId', {controller:CandidateCtrl, 
                                                                     templateUrl:'/static/templates/candidate.html'})
             .otherwise({});
+  }])
+  .config(["$httpProvider", function(provider) {
+      provider.defaults.headers.common['X-CSRFTOKEN'] = $.cookie('csrftoken');
   }]);

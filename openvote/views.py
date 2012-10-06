@@ -22,22 +22,19 @@ def home(request):
     lat, lon = _get_client_location(client_ip)
     user = request.user
     voter = None
-    final_votes_json = {}
     if user.is_authenticated():
         social_user = UserSocialAuth.get_social_auth_for_user(user)[0]
         voter = _create_or_get_voter(social_user, lat, lon)
-        #votes_data = jsonSerializer.serialize(Vote.objects.filter(voter=voter))
-        #votes_json = json.loads(votes_data)
-        #for vote in votes_json:
-            #final_votes_json[vote["election_guuid"]] = vote
-        #final_votes_json = json.dumps(final_votes_json)
 
     # Grab the relevant voter
-    voter_json = json.loads("{}")
+    voter_json = {}
     if voter is not None:
-        voter_json = jsonSerializer.serialize(voter, use_natural_keys=True)
-        voter_json["voter"] = _get_resource_uri("voter", voter["id"])
-        voter_json = SafeString(voter_json)
+        voter_data = jsonSerializer.serialize(voter)
+        voter_data = json.loads(voter_data)
+        voter_json = voter_data.copy()
+        voter_json["voter"] = _get_resource_uri("voter", voter_json["id"])
+        voter_json = SafeString(json.dumps(voter_json))
+
     app_json = _get_initial_response()
 
     return render_to_response('openvote/templates/angularbase.html', locals())
@@ -85,26 +82,33 @@ def _get_client_location(ip):
     u.close()
     lat = 37.4419 if decoded['latitude'] == "0" else decoded['latitude']
     lon = -94.1419 if decoded['longitude'] == "0" else decoded['longitude']
-    return lat, lon
+    return float(lat), float(lon)
 
+# TODO: Commit on success
 def _create_or_get_voter(user, lat, lon):
     uid = user.uid
 
     try:
         voter = Voter.objects.get(anonkey=uid)
-        # TODO: Update lat/lon here
+        num_updates = voter.geoupdates
+        lastlat, voter.lastlat = float(voter.lastlat), lat
+        lastlon, voter.lastlon = float(voter.lastlon), lon
+        voter.avglat = (lat + num_updates * lastlat) / (num_updates + 1)
+        voter.avglon = (lon + num_updates * lastlon) / (num_updates + 1)
+        voter.geoupdates = num_updates + 1
+        voter.save()
     except:
         voter = Voter(
-            anonkey = uid,
-            first_name = "",
-            last_name = "",
-            nickname = user.user.username,
-            provider = user.provider,
-            lastlat = lat,
-            lastlon = lon,
-            avglat = lat,
-            avglon = lon,
-            geoupdates = 0)
+            anonkey=uid,
+            first_name="",
+            last_name="",
+            nickname=user.user.username,
+            provider=user.provider,
+            lastlat=lat,
+            lastlon=lon,
+            avglat=lat,
+            avglon=lon,
+            geoupdates=1)
         voter.save()
 
     return voter
