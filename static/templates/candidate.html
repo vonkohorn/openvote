@@ -1,22 +1,22 @@
 <div ng-controller="ElectionCtrl">
 
     <h2><[current_candidate.name]>  (<[current_candidate.party]>)</h2>
-    Candidate for <a href="/election/<[current_election.id]>"><[current_election.name]></a> <br/>
-    Election Day: <[current_election.election_day]> <br/>
-    <hr/>
-    <div style="float: right;">
+    <div style="float: right; width: 30%;">
         <div class="votingbox">
             Approval?<br/>
             <table>
             <tr>
                 <td>
-                    <input class="vote" type="checkbox" ng-model="candidate.approved" ng-click="vote(candidate)">
+                    <input class="vote" type="checkbox" ng-model="current_candidate.approved" ng-click="vote(current_candidate)">
                     <[ current_candidate.name ]>
                 </td>
             </tr>
             </table>
         </div>
     </div>
+    Candidate for <a href="/election/<[current_election.id]>"><[current_election.name]></a> <br/>
+    Election Day: <[current_election.election_day]> <br/>
+    <hr/>
     <[current_candidate.desc]><br/>
     <br/>
     HTML SLUG: <[current_candidate.htmlslug]><br/>
