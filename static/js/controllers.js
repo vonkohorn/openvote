@@ -1,13 +1,13 @@
 function AppCtrl($scope, Vote) {
     $scope.voter = window.openvote.voter_json;
 
-    $scope.elections = window.openvote.app_json;
+    $scope.contests = window.openvote.app_json;
 
-    $scope.elections_voted = function () {
+    $scope.contests_voted = function () {
         return 3;
     };
 
-    $scope.elections_unvoted = function () {
+    $scope.contests_unvoted = function () {
         return 0;
     };
 
@@ -15,14 +15,14 @@ function AppCtrl($scope, Vote) {
         $scope.current_candidate = candidate;
     };
 
-    $scope.updateElection = function(election) {
-        $scope.current_election = election;
+    $scope.updateContest = function(contest) {
+        $scope.current_contest = contest;
     };
 
     $scope.vote = function(candidate) {
         var vote_json = {
             "candidate": candidate.candidate,
-            "election": candidate.election,
+            "contest": candidate.contest,
             "voter": "/api/v1/voter/1/",
             "approval": candidate.approved
         };
@@ -44,76 +44,74 @@ function AppCtrl($scope, Vote) {
 }
 AppCtrl.$inject = ['$scope', 'Vote'];
 
-function ElectionListCtrl($scope) {
-}
-ElectionListCtrl.$inject = ['$scope'];
+function ContestsCtrl($scope) {}
+ContestsCtrl.$inject = ['$scope'];
 
-function AddElectionCtrl($scope) {
-}
-AddElectionCtrl.$inject = ['$scope'];
+function AddContestCtrl($scope) {}
+AddContestCtrl.$inject = ['$scope'];
 
-function ElectionCtrl($scope, $location, $routeParams, Election) {
-    if ($scope.current_election.id !== $routeParams.electionId) {
-        $scope.current_election = $scope.elections[$routeParams.electionId];
+function ContestCtrl($scope, $location, $routeParams, Contest) {
+    if ($scope.current_contest.id !== $routeParams.contestId) {
+        $scope.current_contest = $scope.contest[$routeParams.contestId];
     }
 
     $scope.reset = function () {
-        var electionId = $routeParams.electionId;
-        Election.get({electionId: electionId},
-            function (election) {
-                _.extend($scope.elections[electionId], election);
+        var contestId = $routeParams.contestId;
+        Contest.get({contestId: contestId},
+            function (contest) {
+                _.extend($scope.contests[contestId], contest);
             }
         );
     };
 
     $scope.update = function () {
-        var election = $scope.current_election;
-        var electionId = $routeParams.electionId;
+        var contest = $scope.current_contest;
+        var contestId = $routeParams.contestId;
         var update_json = {
-                "desc": election.desc,
-                "election_day": "2012-11-10",
-                "htmlslug": election.htmlslug,
-                "name": election.name,
-                "votercount": election.votercount,
-                "admin": election.admin
+                "desc": contest.desc,
+                "contest_day": "2012-11-10",
+                "htmlslug": contest.htmlslug,
+                "name": contest.name,
+                "votercount": contest.votercount,
+                "admin": contest.admin
         };
-        Election.update({electionId: electionId}, update_json,
+        Contest.update({contestId: contestId}, update_json,
             function () {
-                _.extend($scope.elections[electionId], update_json);
+                _.extend($scope.contests[contestId], update_json);
             }
         );
     };
 
     $scope.destroy = function () {
-        var electionId = $routeParams.electionId;
-        Election.destroy({electionId: electionId},
+        var contestId = $routeParams.contestId;
+        Contest.destroy({contestId: contestId},
             function () {
-                delete $scope.elections[electionId];
+                delete $scope.contests[contestId];
             }
         );
     };
 }
-ElectionCtrl.$inject = ['$scope', '$location', '$routeParams', 'Election'];
+ContestCtrl.$inject = ['$scope', '$location', '$routeParams', 'Contest'];
 
 function CandidateCtrl($scope, $location, $routeParams, Candidate) {
     if ($scope.current_candidate.id !== $routeParams.candidateId) {
-        $scope.current_candidate = $scope.elections[$routeParams.electionId].candidates[$routeParams.candidateId];
+        $scope.current_candidate = $scope.contests[$routeParams.contestId].candidates[$routeParams.candidateId];
     }
 
     $scope.update = function () {
         var candidate = $scope.current_candidate;
-        var electionId = $routeParams.electionId;
+        var contestId = $routeParams.contestId;
         var candidateId = $routeParams.candidateId;
         var update_json = {
                 "desc": candidate.desc,
-                "election_day": "2012-11-10",
+                "contest_day": "2012-11-10",
                 "htmlslug": candidate.htmlslug,
                 "name": candidate.name,
-                "election": candidate.election
+                "contest": candidate.contest
         };
         Candidate.update({candidateId: candidateId}, update_json,
             function () {
-                _.extend($scope.elections[electionId].candidates[candidateId], update_json);
+                _.extend($scope.contests[contestId].candidates[candidateId], update_json);
             }
         );
     };
