@@ -1,27 +1,55 @@
 <div ng-controller="ElectionCtrl">
 
     <h2><[current_election.name]></h2>
-    id: <[current_election.id]> <br/>
-    description: <[current_election.desc]> <br/>
-    admin: <[current_election.admin]> <br/>
-    created: <[current_election.created]> <br/>
-    election_day: <[current_election.election_day]> <br/>
-    htmlslug: <[current_election.htmlslug]> <br/>
-    resource_uri: <[current_election.resource_uri]> <br/>
-    updated: <[current_election.updated]> <br/>
-    votercount: <[current_election.votercount]> <br/>
+    Election Day: <[current_election.election_day]> <br/>
+    <hr/>
+    <div style="float: right; width: 40%;">
+        <div class="votingbox">
+            Candidates:<br/>
+            <table>
+            <tr ng-repeat="candidate in current_election.candidates | filter:search | orderBy:'name'">
+                <td>
+                    <input class="vote" type="checkbox" ng-model="candidate.approved" ng-click="vote(candidate)">
+                    <a href="/election/<[current_election.id]>/candidate/<[ candidate.id ]>" data-toggle="collapse" data-target=".nav-collapse" ng-click="updateCandidate(candidate)"><[ candidate.name ]></a>  (<[candidate.party]>)
+                </td>
+            </tr>
+            <!-- if admin --> <tr><td><a href="fail">+ add candidate</a></td></tr>
+            </table>
+        </div>
+    </div>
+    <[current_election.desc]> <br/>
     <br/>
-    Candidates:<br/>
-    <table border=1>
-    <tr ng-repeat="candidate in current_election.candidates | filter:search | orderBy:'name'">
-        <td>candidate name: <[candidate.name]></td>
-        <td>election: <[candidate.election]></td>
-        <td>party: <[candidate.party]></td>
-        <td>desc: <[candidate.desc]></td>
-        <td>htmlslug: <[candidate.htmlslug]></td>
-        <td>created: <[candidate.created]></td>
-        <td>updated: <[candidate.updated]></td>
-    </tr>
-    </table>
 
+
+
+    <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+
+    <div class="box" style="opacity: 0.4;">
+        temp stuff:<br/>
+        name: <[current_election.name]><br/>
+        id: <[current_election.id]> <br/>
+        description: <[current_election.desc]> <br/>
+        admin: <[current_election.admin]> <br/>
+        created: <[current_election.created]> <br/>
+        election_day: <[current_election.election_day]> <br/>
+        htmlslug: <[current_election.htmlslug]> <br/>
+        resource_uri: <[current_election.resource_uri]> <br/>
+        updated: <[current_election.updated]> <br/>
+        votercount: <[current_election.votercount]> <br/>
+        <br/>
+        Candidates:<br/>
+        <table border=1>
+        <tr ng-repeat="candidate in current_election.candidates | filter:search | orderBy:'name'">
+            <td>candidate name: <[candidate.name]></td>
+            <td>election: <[candidate.election]></td>
+            <td>party: <[candidate.party]></td>
+            <td>desc: <[candidate.desc]></td>
+            <td>htmlslug: <[candidate.htmlslug]></td>
+            <td>created: <[candidate.created]></td>
+            <td>updated: <[candidate.updated]></td>
+        </tr>
+        </table>
+    </div>
+
+    
 </div>

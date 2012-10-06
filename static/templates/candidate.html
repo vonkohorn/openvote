@@ -1,12 +1,60 @@
-<div ng-controller="CandidateCtrl">
+<div ng-controller="ElectionCtrl">
 
-    <h2><[current_candidate.name]></h2>
-    id = <[current_candidate.id]><br/>
-    DESCRIPTION: <[current_candidate.desc]><br/>
+    <h2><[current_candidate.name]>  (<[current_candidate.party]>)</h2>
+    Candidate for <a href="/election/<[current_election.id]>"><[current_election.name]></a> <br/>
+    Election Day: <[current_election.election_day]> <br/>
+    <hr/>
+    <div style="float: right;">
+        <div class="votingbox">
+            Approval?<br/>
+            <table>
+            <tr>
+                <td>
+                    <input class="vote" type="checkbox" ng-model="candidate.approved" ng-click="vote(candidate)">
+                    <[ current_candidate.name ]>
+                </td>
+            </tr>
+            </table>
+        </div>
+    </div>
+    <[current_candidate.desc]><br/>
+    <br/>
     HTML SLUG: <[current_candidate.htmlslug]><br/>
-    election: <[current_candidate.election]><br/>
-    party: <[current_candidate.party]><br/>
-    created: <[current_candidate.created]><br/>
-    updated: <[current_candidate.updated]><br/>
+    <br/>
+
+
+
+    <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+
+    <div class="box" style="opacity: 0.4;">
+        <div ng-controller="CandidateCtrl">
+        
+            <h2><[current_candidate.name]></h2>
+            id = <[current_candidate.id]><br/>
+            DESCRIPTION: <[current_candidate.desc]><br/>
+            HTML SLUG: <[current_candidate.htmlslug]><br/>
+            election: <[current_candidate.election]><br/>
+            party: <[current_candidate.party]><br/>
+            created: <[current_candidate.created]><br/>
+            updated: <[current_candidate.updated]><br/>
+            
+        </div>
+    </div>
     
 </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
