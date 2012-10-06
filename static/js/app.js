@@ -20,7 +20,7 @@ angular.module('openvote', ['openvoteServices']).
             .when('/privacy', {templateUrl:'/static/templates/privacy.html'})
             .when('/code', {templateUrl:'/static/templates/code.html'})
             .otherwise({});
-  }])
-  .config(["$httpProvider", function(provider) {
-      provider.defaults.headers.common['X-CSRFTOKEN'] = $.cookie('csrftoken');
-  }]);
+    }])
+    .config(["$httpProvider", function(provider) {
+        provider.defaults.headers.common['X-CSRFTOKEN'] = $.cookie('csrftoken');
+    }]);

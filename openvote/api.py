@@ -8,9 +8,3 @@ class VoterResource(ModelResource):
         queryset = Voter.objects.all()
         resource_name = 'voter'
         authorization = ReadOnlyAuthorization()
-        
-#class RoleResource(ModelResource):
-    #class Meta:
-        #queryset = Role.objects.all()
-        #resource_name = 'role'
-        #authorization = Authorization()

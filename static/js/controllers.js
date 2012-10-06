@@ -1,7 +1,10 @@
-function AppCtrl($scope, Vote) {
+function AppCtrl($scope, Vote, CivicElections) {
     $scope.voter = window.openvote.voter_json;
 
-    $scope.contests = window.openvote.app_json;
+    //$scope.elections = window.openvote.app_json;
+    CivicElections.get({},function (elections) {
+        $scope.elections = elections.elections;
+    });
 
     $scope.contests_voted = function () {
         return 3;
@@ -42,13 +45,22 @@ function AppCtrl($scope, Vote) {
         }
     };
 }
-AppCtrl.$inject = ['$scope', 'Vote'];
+AppCtrl.$inject = ['$scope', 'Vote', 'CivicElections'];
 
 function ContestsCtrl($scope) {}
 ContestsCtrl.$inject = ['$scope'];
 
 function AddContestCtrl($scope) {}
 AddContestCtrl.$inject = ['$scope'];
+
+function ContestListCtrl($scope, $location, $routeParams, Contests) {
+    var electionId = $routeParams.electionId;
+    Contests.get({electionId: electionId}, {"address": "410 Market St, Chapel Hill, NC"}, function (contests) {
+        openvote.contests = contests;
+        $scope.contests = contests;
+    });
+}
+ContestListCtrl.$inject = ['$scope', '$location', '$routeParams', 'CivicVoterQuery'];
 
 function ContestCtrl($scope, $location, $routeParams, Contest) {
     if ($scope.current_contest.id !== $routeParams.contestId) {

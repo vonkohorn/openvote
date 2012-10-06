@@ -17,6 +17,8 @@ PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(_
 
 DATABASES = {'default': dj_database_url.config(default=os.environ['DATABASE_URL'])}
 
+CIVIC_API_KEY = 'AIzaSyAeQRdLK9Oho5v7KcOuV1D1u3TRLnojNDY'
+
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
 # although not all choices may be available on all operating systems.
