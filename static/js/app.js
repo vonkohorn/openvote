@@ -15,11 +15,11 @@ angular.module('openvote', ['openvoteServices']).
             .when('/election/list', {controller:ElectionListCtrl, templateUrl:'/static/templates/election_list.html'})
             .when('/election/new', {controller:AddElectionCtrl, templateUrl:'/static/templates/election_edit.html'})
             .when('/election/edit/:electionId', {controller:ElectionCtrl, templateUrl:'/static/templates/election_edit.html'})
-            .when('/election/:electionId', {controller:ElectionCtrl, templateUrl:'/static/templates/election.html'})
+            .when('/election/:electionId', {controller:ContestListCtrl, templateUrl:'/static/templates/election_list.html'})
             .when('/election/:electionId/candidate/:candidateId', {controller:CandidateCtrl, 
                                                                     templateUrl:'/static/templates/candidate.html'})
             .otherwise({});
-  }])
-  .config(["$httpProvider", function(provider) {
-      provider.defaults.headers.common['X-CSRFTOKEN'] = $.cookie('csrftoken');
-  }]);
+    }])
+    .config(["$httpProvider", function(provider) {
+        provider.defaults.headers.common['X-CSRFTOKEN'] = $.cookie('csrftoken');
+    }]);

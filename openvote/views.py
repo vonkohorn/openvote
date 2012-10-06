@@ -4,6 +4,7 @@ import pkgutil
 import urllib2
 
 from django.core.urlresolvers import reverse
+from django.conf import settings
 from django.contrib.auth import logout as auth_logout
 from django.shortcuts import render_to_response, redirect
 from django.utils.safestring import SafeString
@@ -35,7 +36,8 @@ def home(request):
         voter_json["voter"] = _get_resource_uri("voter", voter_json["id"])
         voter_json = SafeString(json.dumps(voter_json))
 
-    app_json = _get_initial_response()
+    #app_json = _get_initial_response()
+    civic_api_key = settings.CIVIC_API_KEY
 
     return render_to_response('openvote/templates/angularbase.html', locals())
 
