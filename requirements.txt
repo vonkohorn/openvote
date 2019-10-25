@@ -1,5 +1,5 @@
 Django==1.4.1
-Werkzeug==0.8.3
+Werkzeug==0.15.3
 amqplib==1.0.2
 anyjson==0.3.3
 argparse==1.2.1
