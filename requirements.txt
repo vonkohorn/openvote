@@ -4,7 +4,7 @@ amqplib==1.0.2
 anyjson==0.3.3
 argparse==1.2.1
 billiard==2.7.3.12
-celery==3.0.5
+celery==5.2.2
 dj-database-url==0.2.1
 django-celery==3.0.4
 django-extensions==0.9
